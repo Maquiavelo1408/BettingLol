@@ -1,0 +1,46 @@
+<div>
+    <div class="submit-form">
+      <div *ngIf="!submitted">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            required
+            [(ngModel)]="team.name"
+            name="name"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="color">Color</label>
+          <input
+            class="form-control"
+            id="color"
+            required
+            [(ngModel)]="team.color"
+            name="color"
+          />
+        </div>
+
+        <div class="form-group">
+            <label for="color">Region</label>
+            <input
+              class="form-control"
+              id="region"
+              required
+              [(ngModel)]="team.region"
+              name="region"
+            />
+          </div>
+  
+        <button (click)="saveTeam()" class="btn btn-success">Submit</button>
+      </div>
+  
+      <div *ngIf="submitted">
+        <h4>Team was submitted successfully!</h4>
+        <button class="btn btn-success" (click)="newTeam()">Add</button>
+      </div>
+    </div>
+  </div>

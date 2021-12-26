@@ -1,0 +1,46 @@
+<div>
+    <div class="submit-form">
+      <div *ngIf="!submitted">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            required
+            [(ngModel)]="player.name"
+            name="name"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="role">Role</label>
+          <input
+            class="form-control"
+            id="role"
+            required
+            [(ngModel)]="player.role"
+            name="role"
+          />
+        </div>
+        <div class="form-group">
+            <label for="team">Team</label>
+            <input matInput
+            aria-label="Team"
+            [matAutocomplete]="auto"
+            [formControl]="control">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option" [id]="option.id">
+                    {{option.name}}
+                </mat-option>
+            </mat-autocomplete>
+        </div>
+        <button (click)="savePlayer()" class="btn btn-success">Submit</button>
+      </div>
+  
+      <div *ngIf="submitted">
+        <h4>Player was submitted successfully!</h4>
+        <button class="btn btn-success" (click)="newPlayer()">Add</button>
+      </div>
+    </div>
+  </div>

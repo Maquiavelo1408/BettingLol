@@ -1,0 +1,46 @@
+<mat-stepper orientation="vertical" [linear]="false" #stepper>
+    <mat-step [stepControl]="formGroup">
+        <ng-template matStepLabel>Select a winner!</ng-template>
+        <form [formGroup]="formGroup" [style.fontSize.px]="16">
+            <div class="amount-container center">
+                <mat-form-field>
+                <mat-label for="betAmount">Amount:</mat-label>
+                <input matInput formControlName="betAmount"
+                id= "betAmount"
+                type="number" class="amount-right-align" placeholder="0">
+                <span matPrefix>$&nbsp;</span>
+                <span matSuffix>.00</span>
+            </mat-form-field>
+            </div>
+        <table class="mat-elevation-z8">
+            <tr>
+                <th style="text-align: center; padding: 16px; background: rgba(255, 0, 0, 0.433);">Red Team:</th>
+                <th style="text-align: center; padding: 16px; background: rgba(0, 4, 255, 0.433);">Blue Team:</th>
+            </tr>
+            <tr>
+                <td [ngStyle]="redStyle()" style="text-align: center;padding: 8px 8px 8px 0;" (click)="activateRedTeam()">{{ matchData.team2.name}}</td>
+                <td [ngStyle]="blueStyle()" style="text-align: center; padding: 8px 8px 8px 0;" (click)="activateBlueTeam()">{{ matchData.team1.name}}</td>
+            </tr>
+        </table>
+        <div> 
+       <!-- <button class="btn btn-primary center" type="submit">Submit</button>-->
+       <button mat-button matStepperNext>Next</button>
+        </div>
+        </form>
+    </mat-step>
+    <mat-step *ngIf="matchType != 1">
+        <ng-template matStepLabel>Guess the games results!</ng-template>
+        <mat-radio-group class="round-radio-group" aria-label="Select" *ngFor="let round of counter(matchType); last as last">
+            <mat-radio-button class="round-radio-button" style="margin-right: 15px;" value="1">{{matchData.team2.name}}</mat-radio-button>
+            <mat-radio-button class="round-radio-button" value="2">{{matchData.team1.name}}</mat-radio-button>
+        </mat-radio-group>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Confirm your bet</ng-template>
+        <div class="text-danger" *ngIf="formGroup.invalid && formGroup.dirty">
+            <p *ngIf="formGroup.controls['betAmount'].hasError('min')">The bet amount should be greater than 5.</p>
+            <p *ngIf="formGroup.controls['teamSelect'].hasError('min')">Please select a team to bet.</p>
+        </div>
+        <button mat-raised-button (click)="submit()" [disabled]="formGroup.invalid" color="primary">Confirm bet.</button>
+    </mat-step>
+</mat-stepper>
