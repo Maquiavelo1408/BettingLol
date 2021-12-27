@@ -1,1 +1,51 @@
-<p>matches works!</p>
+<div>
+    <div class="submit-form">
+      <div *ngIf="!submitted">
+          <mat-select>
+              <mat-option *ngFor="let region of regions" [value]="region">
+                  {{region}}
+              </mat-option>
+          </mat-select>
+        <div class="form-group">
+          <label for="team1">Team 1</label>
+          <input
+            type="text"
+            class="form-control"
+            id="team1"
+            required
+            [(ngModel)]="match.team1"
+            name="team1"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="team2">team2</label>
+          <input
+            class="form-control"
+            id="team2"
+            required
+            [(ngModel)]="match.team2"
+            name="team2"
+          />
+        </div>
+
+        <div class="form-group">
+            <label for="competition">Competition</label>
+            <input
+              class="form-control"
+              id="idCompetition"
+              required
+              [(ngModel)]="match.competition"
+              name="competition"
+            />
+          </div>
+  
+        <button (click)="saveMatch()" class="btn btn-success">Submit</button>
+      </div>
+  
+      <div *ngIf="submitted">
+        <h4>Match was submitted successfully!</h4>
+        <button class="btn btn-success" (click)="newMatch()">Add</button>
+      </div>
+    </div>
+  </div>

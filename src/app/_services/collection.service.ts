@@ -30,6 +30,8 @@ export class CollectionService {
     createPlayer(data: any):Observable<any>{
         return this.http.post(baseUrl+'player', data);
     }
-
+    createMatch(data: any): Observable<any>{
+        return this.http.post(baseUrl+'match', data);
+    }
 
 }
