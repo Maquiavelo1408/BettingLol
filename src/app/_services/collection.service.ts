@@ -40,5 +40,8 @@ export class CollectionService {
         return this.http.get(`${baseUrl}collection/competition?region=${region}`);
     }
 
+    createMatch(data: any): Observable<any>{
+        return this.http.post(baseUrl+'match', data);
+    }
 
 }
