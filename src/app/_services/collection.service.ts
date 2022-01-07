@@ -30,6 +30,15 @@ export class CollectionService {
     createPlayer(data: any):Observable<any>{
         return this.http.post(baseUrl+'player', data);
     }
+    createCompetition(data: any): Observable<any>{
+        return this.http.post(baseUrl+'collection/competition', data);
+    }
+    getCompetitions(): Observable<any>{
+        return this.http.get(`${baseUrl}collection/competition`);
+    }
+    getCompetitionsByRegion(region: any): Observable<any>{
+        return this.http.get(`${baseUrl}collection/competition?region=${region}`);
+    }
 
 
 }

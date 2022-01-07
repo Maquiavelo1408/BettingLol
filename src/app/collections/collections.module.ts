@@ -9,6 +9,10 @@ import { PlayersComponent } from './players/players/players.component';
 import { CompetitionsComponent } from './competitions/competitions/competitions.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule} from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MaterialIncludeModule } from '../../material.module'
 
 
 @NgModule({
@@ -22,10 +26,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   imports: [
     CommonModule,
     FormsModule,
-    MatListModule,
-    MatAutocompleteModule,
     ReactiveFormsModule,
-    MatFormFieldModule
+    MaterialIncludeModule
+  ],
+  providers:[
+    MatDatepickerModule
   ],
   exports:[
     TeamsComponent,

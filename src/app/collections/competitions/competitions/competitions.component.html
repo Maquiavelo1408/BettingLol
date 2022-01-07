@@ -1,1 +1,72 @@
-<p>competitions works!</p>
+<div>
+    <div class="submit-form">
+      <div *ngIf="!submitted">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            required
+            [(ngModel)]="competition.name"
+            name="name"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="region">Region</label>
+          <input
+            class="form-control"
+            id="region"
+            required
+            [(ngModel)]="competition.region"
+            name="region"
+          />
+        </div>
+        <div class="form-group">
+            <label for="organizer">Organizer</label>
+            <input
+            class="form-control"
+            id="organizer"
+            [(ngModel)]="competition.organizer"
+            name="organizer"
+          />
+        </div>
+        <div class="form-group">
+            <label for="country">Country</label>
+            <input
+            class="form-control"
+            id="country"
+            [(ngModel)]="competition.country"
+            name="country"
+          />
+        </div>
+        <div class="form-group" [formGroup]="range" >
+            <mat-form-field appearance="fill">
+                <mat-label>
+                    Start Date
+                </mat-label>
+                <input matInput formControlName="start" [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="form-group" [formGroup]="range" >
+            <mat-form-field appearance="fill">
+                <mat-label>
+                    End Date
+                </mat-label>
+                <input matInput formControlName="end" [matDatepicker]="picker2">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <button (click)="saveCompetition()" class="btn btn-success">Submit</button>
+      </div>
+  
+      <div *ngIf="submitted">
+        <h4>Competition was submitted successfully!</h4>
+        <button class="btn btn-success" (click)="newCompetition()">Add</button>
+      </div>
+    </div>
+  </div>
