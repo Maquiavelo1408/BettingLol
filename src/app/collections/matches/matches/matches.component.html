@@ -1,44 +1,49 @@
 <div>
     <div class="submit-form">
       <div *ngIf="!submitted">
-          <mat-select>
+        <div class="form-group">
+          <label for="region">Region</label>
+          <mat-form-field appearance="fill">
+          <mat-select [formControl]="regionControl" (selectionChange)="regionChange(regionControl.value?.abbreviation)">
               <mat-option *ngFor="let region of regions" [value]="region">
-                  {{region}}
+                  {{region.abbreviation}}
               </mat-option>
           </mat-select>
+        </mat-form-field>
+        </div>
+        <div class="form-group">
+          <label for="competition">Competition</label>
+          <mat-form-field appearance="fill">
+            <mat-select [formControl]="compControl">
+              <mat-option *ngFor="let competition of competitions" [value]="competition">
+                {{ competition.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
         <div class="form-group">
           <label for="team1">Team 1</label>
-          <input
-            type="text"
-            class="form-control"
-            id="team1"
-            required
-            [(ngModel)]="match.team1"
-            name="team1"
-          />
+          <mat-form-field appearance="fill">
+            <mat-select [formControl]="team1Control">
+              <mat-option *ngFor="let team of teams" [value]="team">
+                {{ team.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
   
         <div class="form-group">
-          <label for="team2">team2</label>
-          <input
-            class="form-control"
-            id="team2"
-            required
-            [(ngModel)]="match.team2"
-            name="team2"
-          />
+          <label for="team2">Team 2</label>
+          <mat-form-field appearance="fill">
+            <mat-select [formControl]="team2Control">
+              <mat-option *ngFor="let team of teams" [value]="team">
+                {{ team.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
 
-        <div class="form-group">
-            <label for="competition">Competition</label>
-            <input
-              class="form-control"
-              id="idCompetition"
-              required
-              [(ngModel)]="match.competition"
-              name="competition"
-            />
-          </div>
+        
   
         <button (click)="saveMatch()" class="btn btn-success">Submit</button>
       </div>

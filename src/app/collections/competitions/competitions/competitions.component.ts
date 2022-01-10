@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Competition } from 'src/app/models/competition.model';
+import { Region } from 'src/app/models/region.model';
 import { CollectionService } from 'src/app/_services/collection.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class CompetitionsComponent implements OnInit {
     start: new FormControl(),
     end: new FormControl()
   })
+  regionControl = new FormControl('', Validators.required);
   competition: Competition = {
     name: '',
     startDate: '',
@@ -24,7 +26,21 @@ export class CompetitionsComponent implements OnInit {
   }
   submitted = false;
   constructor(private collectionService: CollectionService) { }
-
+  regions: Region[] = [
+    { name:'Brazil', abbreviation: 'BR'},
+    { name: 'Europe Nordic & East', abbreviation: 'EUNE'},
+    { name: 'Europe Weds', abbreviation: 'EUW'},
+    { name: 'Latin America North', abbreviation: 'LAN'},
+    { name: 'Latin America South', abbreviation: 'LAS'},
+    { name:'North Ameria', abbreviation:'NA'},
+    {name:'Oceania', abbreviation:'OCE'},
+    { name: 'Russia', abbreviation: 'RU'},
+    { name: 'Turkey', abbreviation: 'TR'},
+    { name: 'Japan', abbreviation: 'JP'},
+    { name: 'Republic of Korea', abbreviation: 'KR'},
+    { name:'China', abbreviation:'CHN'},
+    {name:'Internation', abbreviation: 'INT'}
+  ];
   ngOnInit(): void {
   }
 
@@ -34,7 +50,7 @@ export class CompetitionsComponent implements OnInit {
        name: this.competition.name,
        start_date: this.range.controls['start'].value,
        end_date: this.range.controls['end'].value,
-       region: this.competition.region,
+       region: this.regionControl.value?.abbreviation,
        organizer: this.competition.organizer,
        country: this.competition.country
     }

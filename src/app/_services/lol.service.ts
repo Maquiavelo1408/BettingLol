@@ -48,4 +48,8 @@ export class LolService {
     return this.http.post(API_URL+'bet', body,
     httpOptions);
    }
+
+   public getTeamsByRegion(region: any): Observable<any>{
+     return this.http.get(API_URL+'team?region='+ region);
+   }
 }

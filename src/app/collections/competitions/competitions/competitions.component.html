@@ -15,13 +15,13 @@
   
         <div class="form-group">
           <label for="region">Region</label>
-          <input
-            class="form-control"
-            id="region"
-            required
-            [(ngModel)]="competition.region"
-            name="region"
-          />
+          <mat-form-field appearance="fill">
+          <mat-select [formControl]="regionControl">
+              <mat-option *ngFor="let region of regions" [value]="region">
+                  {{region.abbreviation}}
+              </mat-option>
+          </mat-select>
+        </mat-form-field>
         </div>
         <div class="form-group">
             <label for="organizer">Organizer</label>
