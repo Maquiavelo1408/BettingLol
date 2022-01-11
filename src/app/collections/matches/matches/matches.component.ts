@@ -26,6 +26,8 @@ export class MatchesComponent implements OnInit {
   compControl = new FormControl('', Validators.required);
   team1Control = new FormControl('', Validators.required);
   team2Control = new FormControl('', Validators.required);
+  date = new FormControl('', Validators.required);
+  selectType: number = 1;
   regions: Region[] = [
     { name:'Brazil', abbreviation: 'BR'},
     { name: 'Europe Nordic & East', abbreviation: 'EUNE'},
@@ -49,10 +51,11 @@ export class MatchesComponent implements OnInit {
   }
   saveMatch(): void{
     const data = {
-      team1: this.match.team1,
-      team2: this.match.team2,
-      date: this.match.date,
-      idCompetition: this.match.idCompetition
+      blue_team: this.team1Control.value?.id,
+      red_team: this.team2Control.value?.id,
+      date: this.date.value,
+      id_competition: this.compControl.value?.id,
+      match_type: this.selectType
     }
     this.collectionService.createMatch(data)
     .subscribe(

@@ -42,8 +42,22 @@
             </mat-select>
           </mat-form-field>
         </div>
-
-        
+        <div class="form-group">
+          <label for="date">Date</label>
+          <mat-form-field appearance="fill">
+            <input matInput [formControl]="date" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <label for="matchType">Match Type</label>
+          <mat-radio-group [(ngModel)]="selectType" aria-label="Select an option" class="radio-group">
+            <mat-radio-button class="radio-button" value="1">Best of 1</mat-radio-button>
+            <mat-radio-button class="radio-button" value="2">Best of 3</mat-radio-button>
+            <mat-radio-button class="radio-button" value="3">Best of 5</mat-radio-button>
+          </mat-radio-group>
+        </div>
   
         <button (click)="saveMatch()" class="btn btn-success">Submit</button>
       </div>

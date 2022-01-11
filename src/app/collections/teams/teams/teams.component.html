@@ -25,15 +25,15 @@
         </div>
 
         <div class="form-group">
-            <label for="region">Region</label>
-            <input
-              class="form-control"
-              id="region"
-              required
-              [(ngModel)]="team.region"
-              name="region"
-            />
-          </div>
+          <label for="region">Region</label>
+          <mat-form-field appearance="fill">
+          <mat-select [formControl]="regionControl">
+              <mat-option *ngFor="let region of regions" [value]="region">
+                  {{region.abbreviation}}
+              </mat-option>
+          </mat-select>
+        </mat-form-field>
+        </div>
   
         <button (click)="saveTeam()" class="btn btn-success">Submit</button>
       </div>
