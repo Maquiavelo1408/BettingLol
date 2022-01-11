@@ -1,6 +1,6 @@
 import { CloneVisitor } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params } from '@angular/router';
 import { LolService } from 'src/app/_services/lol.service';
@@ -13,23 +13,46 @@ import { UserService } from 'src/app/_services/user.service';
   styleUrls: ['./match.component.css']
 })
 export class MatchComponent implements OnInit {
-  
+  gameResults: FormGroup;
   constructor(private route: ActivatedRoute, private lol: LolService, private token: TokenStorageService,
-    private snackBar: MatSnackBar, private userSerive: UserService) { }
+    private snackBar: MatSnackBar, private userSerive: UserService, private fb: FormBuilder) { 
+      this.gameResults = fb.group({
+        0: '',
+        1: '',
+        2:'',
+        3:'',
+        4:''
+      })
+    }
   matchId = "";
   matchData: any = [];
   currentUser: any;
   matchType= 1;
+  noGames = 0;
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => this.matchId = params["matchId"]);
     this.lol.getMatchById(this.matchId).subscribe(data=>{
       console.log(data);
       this.matchData = data;
       this.matchType = data.match_type;
-
+      switch(this.matchType){
+        case 1:
+          this.noGames = 1;
+          break;
+          case 2:
+            this.noGames = 3;
+            break;
+            case 3:
+              this.noGames = 5;
+              break;
+              default:
+                this.noGames = 1;
+                break;
+      }
     });
     this.currentUser = this.token.getUser();
     this.formGroup.controls['betAmount'].markAsDirty();
+    
 
   }
 
@@ -80,11 +103,13 @@ export class MatchComponent implements OnInit {
     this.statusRedTeam = true;
     this.statusBlueTeam = false;
     this.formGroup.controls['teamSelect'].setValue(2);
+    console.log(this.formGroup);
   }
   activateBlueTeam(){
     this.statusRedTeam = false;
     this.statusBlueTeam = true;
     this.formGroup.controls['teamSelect'].setValue(1);
+    console.log(this.formGroup);
   }
 
   blueStyle(): Object{
@@ -109,6 +134,54 @@ export class MatchComponent implements OnInit {
   }
   counter(i:number){
     return new Array(i);
+  }
+  displayWinner(i: number){
+    console.log(this.gameResults);
+    if(this.gameResults.controls[i.toString()].value == '1'){
+      return true;
+    } else{
+      return false;
+    }
+  }
+  checkMatchResults(){
+    switch(this.matchType){
+      case 1:
+        
+        break;
+        case 2:
+          if((this.gameResults.controls[0].value == this.gameResults.controls[1].value)){
+            this.gameResults.controls[2].disable();
+          } else{
+            this.gameResults.controls[2].enable();
+          }
+          break;
+          case 3:
+            let team1Wins = 0;
+            let team2Wins = 0;
+            for(let i = 0; i < 5; i++){
+              if(this.gameResults.controls[i].value=='1'){
+                team1Wins++;
+              }else if(this.gameResults.controls[i].value == '2'){
+                team2Wins++;
+              }
+              if(team1Wins >= 3 || team2Wins >= 3){
+                if(i < 4)
+                  this.gameResults.controls[i+1].disable();
+                  else{
+                    this.gameResults.controls[i+1].disable();
+                  }
+              } else{
+                if(i < 4)
+                  this.gameResults.controls[i+1].enable();
+                  else{
+                    this.gameResults.controls[i+1].enable();
+                  }
+              }
+            }
+            
+            break;
+
+    }
   }
 }
 

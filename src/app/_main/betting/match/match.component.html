@@ -30,10 +30,12 @@
     </mat-step>
     <mat-step *ngIf="matchType != 1">
         <ng-template matStepLabel>Guess the games results!</ng-template>
-        <mat-radio-group class="round-radio-group" aria-label="Select" *ngFor="let round of counter(matchType); last as last">
+        <div *ngFor="let round of counter(noGames); let in = index; last as last" [formGroup]="gameResults">
+        <mat-radio-group class="round-radio-group" aria-label="Select" formControlName="{{in}}" (change)="checkMatchResults()">
             <mat-radio-button class="round-radio-button" style="margin-right: 15px;" value="1">{{matchData.team2.name}}</mat-radio-button>
             <mat-radio-button class="round-radio-button" value="2">{{matchData.team1.name}}</mat-radio-button>
         </mat-radio-group>
+    </div>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Confirm your bet</ng-template>
@@ -41,6 +43,18 @@
             <p *ngIf="formGroup.controls['betAmount'].hasError('min')">The bet amount should be greater than 5.</p>
             <p *ngIf="formGroup.controls['teamSelect'].hasError('min')">Please select a team to bet.</p>
         </div>
+        <label>Selected winner:</label>
+        <p *ngIf="formGroup.controls['teamSelect'].value == 1">{{matchData.team1.name}}</p>
+        <p *ngIf="formGroup.controls['teamSelect'].value == 2">{{matchData.team2.name}}</p>
+        <label>Predicted match result:</label>
+        <div *ngFor="let round of counter(noGames);let in = index;">
+            <p>Game {{in+1}}:</p>
+            <p *ngIf="!displayWinner(in)">{{matchData.team1.name}}</p>
+            <p *ngIf="displayWinner(in)">{{matchData.team2.name}}</p>
+            
+        </div>
+        
+
         <button mat-raised-button (click)="submit()" [disabled]="formGroup.invalid" color="primary">Confirm bet.</button>
     </mat-step>
 </mat-stepper>
