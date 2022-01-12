@@ -6,7 +6,7 @@ import { LolService } from 'src/app/_services/lol.service';
 @Component({
   selector: 'app-betting',
   templateUrl: './betting.component.html',
-  styleUrls: ['./betting.component.css']
+  styleUrls: ['./betting.component.scss']
 })
 export class BettingComponent implements OnInit {
 
@@ -25,7 +25,7 @@ export class BettingComponent implements OnInit {
     this.range.controls['end'].setValue(this.endDate);
     this.getMatches();
   }
-  displayedColumns: string[] = ['redTeam', 'blueTeam'];
+  displayedColumns: string[] = ['date','redTeam', 'blueTeam','competition'];
   dataSource = [];
   getMatches(){
     this.startDate = this.range.controls['start'].value;
@@ -44,7 +44,9 @@ export class BettingComponent implements OnInit {
 }
 
 export interface LolMatch {
+  date: string;
   redTeam: string;
   blueTeam: string;
+  competition: string;
   data: Date;
 }

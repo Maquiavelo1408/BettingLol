@@ -23,8 +23,9 @@
             </tr>
         </table>
         <div> 
+            <mat-divider></mat-divider>
        <!-- <button class="btn btn-primary center" type="submit">Submit</button>-->
-       <button mat-button matStepperNext>Next</button>
+       <button mat-stroked-button color="primary" class="next-stepper-button" matStepperNext>Next</button>
         </div>
         </form>
     </mat-step>
@@ -36,7 +37,7 @@
             <mat-radio-button class="round-radio-button" value="2">{{matchData.team2.name}}</mat-radio-button>
         </mat-radio-group>
     </div>
-    <button mat-button matStepperNext>Next</button>
+    <button mat-stroked-button color="primary" class="next-stepper-button" matStepperNext>Next</button>
     </mat-step>
     <mat-step>
         <div [formGroup]="secondaryResults">
@@ -56,11 +57,11 @@
                     <mat-radio-button value="6">More than 35 minutes</mat-radio-button>
                 </mat-radio-group>
                 <p>Guess the player with more kills:</p>
-                <mat-grid-list cols="2" rowHeight="2:1">
+                <mat-grid-list cols="2" rowHeight="4:1">
                     <mat-grid-tile>
                         {{matchData.team1.name}}
                         <mat-radio-group aria-label="Select a player" class="player-radio-group" formControlName="topKill1">
-                            <mat-radio-button *ngFor="let player of playersTeam1;" [value]="player.id">
+                            <mat-radio-button *ngFor="let player of playersTeam1;" class="player-radio-button" [value]="player.id">
                                 {{player.name}} ({{player.role}})
                             </mat-radio-button>
                         </mat-radio-group>
@@ -68,7 +69,7 @@
                     <mat-grid-tile>
                         {{matchData.team2.name}}
                         <mat-radio-group aria-label="Select a player" class="player-radio-group" formControlName="topKill2">
-                            <mat-radio-button *ngFor="let player of playersTeam2;" [value]="player.id">
+                            <mat-radio-button *ngFor="let player of playersTeam2;" class="player-radio-button" [value]="player.id">
                                 {{player.name}} ({{player.role}})
                             </mat-radio-button>
                         </mat-radio-group>
@@ -84,11 +85,11 @@
                     <mat-radio-button [value]="5">Chemtech Dragon</mat-radio-button>
                 </mat-radio-group>
                 <p>Guess the player with more deaths:</p>
-                <mat-grid-list cols="2" rowHeight="2:1">
+                <mat-grid-list cols="2" rowHeight="4:1">
                     <mat-grid-tile>
-                        {{matchData.team1.name}}
+                        <label>{{matchData.team1.name}}</label>
                         <mat-radio-group aria-label="Select a player" class="player-radio-group" formControlName="topDeath1">
-                            <mat-radio-button *ngFor="let player of playersTeam1;" [value]="player.id">
+                            <mat-radio-button *ngFor="let player of playersTeam1;" class="player-radio-button" [value]="player.id">
                                 {{player.name}} ({{player.role}})
                             </mat-radio-button>
                         </mat-radio-group>
@@ -96,7 +97,7 @@
                     <mat-grid-tile>
                         {{matchData.team2.name}}
                         <mat-radio-group aria-label="Select a player" class="player-radio-group" formControlName="topDeath1">
-                            <mat-radio-button *ngFor="let player of playersTeam2;" [value]="player.id">
+                            <mat-radio-button *ngFor="let player of playersTeam2;"  class="player-radio-button" [value]="player.id">
                                 {{player.name}} ({{player.role}})
                             </mat-radio-button>
                         </mat-radio-group>
@@ -107,6 +108,7 @@
         
         </mat-tab-group>
         </div>
+        <button mat-stroked-button color="primary" class="next-stepper-button" matStepperNext>Next</button>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Confirm your bet</ng-template>

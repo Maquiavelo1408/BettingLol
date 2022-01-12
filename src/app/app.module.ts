@@ -23,6 +23,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatchesComponent } from './collections/matches/matches/matches.component';
 import { TeamsComponent } from './collections/teams/teams/teams.component';
 import { CollectionsModule } from './collections/collections.module';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { CollectionsModule } from './collections/collections.module';
   ],
   imports: [
     BrowserModule,
+    MatListModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
@@ -45,6 +48,7 @@ import { CollectionsModule } from './collections/collections.module';
     BettingModule,
     AdminModule,
     MatToolbarModule,
+    MatMenuModule,
     MatIconModule,
     MatButtonModule,
     FlexLayoutModule,

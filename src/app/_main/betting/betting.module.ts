@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input';
 import { BettingComponent } from './betting.component'
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule} from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
@@ -45,7 +45,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatRadioModule,
     MatDividerModule,
     MatToolbarModule,
-    MatGridListModule
+    MatGridListModule,
+    MatRippleModule
   ],
   providers:[
     MatDatepickerModule

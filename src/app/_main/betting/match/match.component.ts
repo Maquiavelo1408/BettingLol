@@ -11,7 +11,7 @@ import { UserService } from 'src/app/_services/user.service';
 @Component({
   selector: 'app-match',
   templateUrl: './match.component.html',
-  styleUrls: ['./match.component.css']
+  styleUrls: ['./match.component.scss']
 })
 export class MatchComponent implements OnInit {
   gameResults: FormGroup;
