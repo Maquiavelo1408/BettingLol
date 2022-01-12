@@ -39,12 +39,14 @@
     <button mat-button matStepperNext>Next</button>
     </mat-step>
     <mat-step>
-        <ng-template matStepLabel>Guess the players results!</ng-template>
+        <div [formGroup]="secondaryResults">
+        <ng-template matStepLabel>Guess this results!</ng-template>
         <mat-tab-group>
-            <mat-tab *ngFor="let round of counter(noGames); let in= index;" class="tab-title">
+            <mat-tab *ngFor="let round of counter(noGames); let in= index;" class="tab-title" formArrayName="games">
+                <div [formGroupName]="in">
                 <ng-template mat-tab-label>Game {{in+1}}</ng-template>
                 <p>Guess the game duration:</p>
-                <mat-radio-group aria-label="Select a duration">
+                <mat-radio-group aria-label="Select a duration" formControlName="gameDuration">
                     <mat-radio-button value="0">Less than 10 minutes</mat-radio-button>
                     <mat-radio-button value="1">10-15 minutes</mat-radio-button>
                     <mat-radio-button value="2">15-20 minutes</mat-radio-button>
@@ -57,23 +59,23 @@
                 <mat-grid-list cols="2" rowHeight="2:1">
                     <mat-grid-tile>
                         {{matchData.team1.name}}
-                        <mat-radio-group aria-label="Select a player" class="player-radio-group">
-                            <mat-radio-button *ngFor="let player of playersTeam1;" [value]="player">
+                        <mat-radio-group aria-label="Select a player" class="player-radio-group" formControlName="topKill1">
+                            <mat-radio-button *ngFor="let player of playersTeam1;" [value]="player.id">
                                 {{player.name}} ({{player.role}})
                             </mat-radio-button>
                         </mat-radio-group>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         {{matchData.team2.name}}
-                        <mat-radio-group aria-label="Select a player" class="player-radio-group">
-                            <mat-radio-button *ngFor="let player of playersTeam2;" [value]="player">
+                        <mat-radio-group aria-label="Select a player" class="player-radio-group" formControlName="topKill2">
+                            <mat-radio-button *ngFor="let player of playersTeam2;" [value]="player.id">
                                 {{player.name}} ({{player.role}})
                             </mat-radio-button>
                         </mat-radio-group>
                     </mat-grid-tile>
                 </mat-grid-list>
                 <p>Guess the dragon soul:</p>
-                <mat-radio-group>
+                <mat-radio-group aria-label="Select a soul" formControlName="dragonSoul">
                     <mat-radio-button [value]="0">Infernal Dragon</mat-radio-button>
                     <mat-radio-button [value]="1">Cloud Dragon</mat-radio-button>
                     <mat-radio-button [value]="2">Mountain Dragon</mat-radio-button>
@@ -85,23 +87,26 @@
                 <mat-grid-list cols="2" rowHeight="2:1">
                     <mat-grid-tile>
                         {{matchData.team1.name}}
-                        <mat-radio-group aria-label="Select a player" class="player-radio-group">
-                            <mat-radio-button *ngFor="let player of playersTeam1;" [value]="player">
+                        <mat-radio-group aria-label="Select a player" class="player-radio-group" formControlName="topDeath1">
+                            <mat-radio-button *ngFor="let player of playersTeam1;" [value]="player.id">
                                 {{player.name}} ({{player.role}})
                             </mat-radio-button>
                         </mat-radio-group>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         {{matchData.team2.name}}
-                        <mat-radio-group aria-label="Select a player" class="player-radio-group">
-                            <mat-radio-button *ngFor="let player of playersTeam2;" [value]="player">
+                        <mat-radio-group aria-label="Select a player" class="player-radio-group" formControlName="topDeath1">
+                            <mat-radio-button *ngFor="let player of playersTeam2;" [value]="player.id">
                                 {{player.name}} ({{player.role}})
                             </mat-radio-button>
                         </mat-radio-group>
                     </mat-grid-tile>
                 </mat-grid-list>
+            </div>
             </mat-tab>
+        
         </mat-tab-group>
+        </div>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Confirm your bet</ng-template>

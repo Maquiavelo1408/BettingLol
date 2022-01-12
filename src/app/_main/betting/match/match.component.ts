@@ -1,6 +1,6 @@
 import { CloneVisitor } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Form, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Player } from 'src/app/models/player.model';
@@ -15,6 +15,7 @@ import { UserService } from 'src/app/_services/user.service';
 })
 export class MatchComponent implements OnInit {
   gameResults: FormGroup;
+  secondaryResults: FormGroup;
   constructor(private route: ActivatedRoute, private lol: LolService, private token: TokenStorageService,
     private snackBar: MatSnackBar, private userSerive: UserService, private fb: FormBuilder) { 
       this.gameResults = fb.group({
@@ -23,7 +24,51 @@ export class MatchComponent implements OnInit {
         2:'',
         3:'',
         4:''
-      })
+      });
+        this.secondaryResults = this.fb.group({
+       games: fb.array([
+        this.fb.group({
+          gameDuration: ['', Validators.required],
+          topKill1: ['', Validators.required],
+          topKill2:['', Validators.required],
+          dragonSoul: ['', Validators.required],
+          topDeath1: ['', Validators.required],
+          topDeath2:['', Validators.required]
+        }),
+        this.fb.group({
+          gameDuration: ['', Validators.required],
+          topKill1: ['', Validators.required],
+          topKill2:['', Validators.required],
+          dragonSoul: ['', Validators.required],
+          topDeath1: ['', Validators.required],
+          topDeath2:['', Validators.required]
+        }),
+        this.fb.group({
+          gameDuration: ['', Validators.required],
+          topKill1: ['', Validators.required],
+          topKill2:['', Validators.required],
+          dragonSoul: ['', Validators.required],
+          topDeath1: ['', Validators.required],
+          topDeath2:['', Validators.required]
+        }),
+        this.fb.group({
+          gameDuration: ['', Validators.required],
+          topKill1: ['', Validators.required],
+          topKill2:['', Validators.required],
+          dragonSoul: ['', Validators.required],
+          topDeath1: ['', Validators.required],
+          topDeath2:['', Validators.required]
+        }),
+        this.fb.group({
+          gameDuration: ['', Validators.required],
+          topKill1: ['', Validators.required],
+          topKill2:['', Validators.required],
+          dragonSoul: ['', Validators.required],
+          topDeath1: ['', Validators.required],
+          topDeath2:['', Validators.required]
+        }),
+      ])
+    });
     }
   matchId = "";
   matchData: any = [];
@@ -78,6 +123,7 @@ export class MatchComponent implements OnInit {
   }
 
   submit(){
+    console.log(this.secondaryResults);
     if(this.formGroup.status == 'VALID')
     {
       this.formGroup.controls['matchId'].setValue(this.matchId);
