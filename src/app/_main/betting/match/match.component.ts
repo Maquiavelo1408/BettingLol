@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Player } from 'src/app/models/player.model';
 import { LolService } from 'src/app/_services/lol.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { UserService } from 'src/app/_services/user.service';
@@ -49,6 +50,7 @@ export class MatchComponent implements OnInit {
                 this.noGames = 1;
                 break;
       }
+      this.getPlayersByTeam();
     });
     this.currentUser = this.token.getUser();
     this.formGroup.controls['betAmount'].markAsDirty();
@@ -60,6 +62,10 @@ export class MatchComponent implements OnInit {
   statusSelected = 'not-active';
   statusRedTeam = false;
   statusBlueTeam = false;
+  team1Wins =0;
+  team2Wins= 0;
+  playersTeam1: Player[] =[];
+  playersTeam2: Player[] = [];
   formGroup = new FormGroup({
     teamSelect: new FormControl('-1', [Validators.required, Validators.min(1), Validators.max(2)]),
     betAmount: new FormControl('0', [Validators.required, Validators.min(5)]),
@@ -102,14 +108,12 @@ export class MatchComponent implements OnInit {
   activateRedTeam(){
     this.statusRedTeam = true;
     this.statusBlueTeam = false;
-    this.formGroup.controls['teamSelect'].setValue(2);
-    console.log(this.formGroup);
+    this.formGroup.controls['teamSelect'].setValue(1);
   }
   activateBlueTeam(){
     this.statusRedTeam = false;
     this.statusBlueTeam = true;
-    this.formGroup.controls['teamSelect'].setValue(1);
-    console.log(this.formGroup);
+    this.formGroup.controls['teamSelect'].setValue(2);
   }
 
   blueStyle(): Object{
@@ -136,7 +140,6 @@ export class MatchComponent implements OnInit {
     return new Array(i);
   }
   displayWinner(i: number){
-    console.log(this.gameResults);
     if(this.gameResults.controls[i.toString()].value == '1'){
       return true;
     } else{
@@ -156,25 +159,24 @@ export class MatchComponent implements OnInit {
           }
           break;
           case 3:
-            let team1Wins = 0;
-            let team2Wins = 0;
+            this.team1Wins = 0;
+            this.team2Wins = 0;
             for(let i = 0; i < 5; i++){
               if(this.gameResults.controls[i].value=='1'){
-                team1Wins++;
+                this.team1Wins++;
               }else if(this.gameResults.controls[i].value == '2'){
-                team2Wins++;
+                this.team2Wins++;
               }
-              if(team1Wins >= 3 || team2Wins >= 3){
-                if(i < 4)
+              if(this.team1Wins >= 3 || this.team2Wins >= 3){
+                if(i < 4){
+                  this.gameResults.controls[i+1].setValue(0);
                   this.gameResults.controls[i+1].disable();
-                  else{
-                    this.gameResults.controls[i+1].disable();
-                  }
+                }
               } else{
                 if(i < 4)
                   this.gameResults.controls[i+1].enable();
                   else{
-                    this.gameResults.controls[i+1].enable();
+                    this.gameResults.controls[i].enable();
                   }
               }
             }
@@ -182,6 +184,57 @@ export class MatchComponent implements OnInit {
             break;
 
     }
+  }
+  showGameResult(index: number){
+    if(this.gameResults.controls[index].value > 0){
+      return true;
+    }
+    return false;
+  }
+  displayMissingGamePredictionError(){
+    if(this.team1Wins < 3 && this.team2Wins < 3){
+      return true;
+    }
+    return false;
+  }
+  displayMatchingSelectionWinnerError(){
+    if(this.formGroup.controls['teamSelect'].value == 1){
+      if(this.team1Wins != 3){
+        return true;
+      }
+      else if(this.team1Wins ==3){
+        return false;
+      }
+    }
+    if(this.formGroup.controls['teamSelect'].value == 2){
+      if(this.team2Wins != 3){
+        return true;
+      } else if(this.team2Wins == 3){
+        return false;
+      }
+    }
+    return false;
+  }
+  getPlayersByTeam(){
+    this.lol.getPlayersByTeam(this.matchData.team1.id)
+    .subscribe(
+      data=>{
+        console.log(data);
+        this.playersTeam1 = data;
+      },
+      err=>{
+        console.log(err);
+      }
+    );
+    this.lol.getPlayersByTeam(this.matchData.team2.id)
+    .subscribe(
+      data=>{
+        this.playersTeam2 = data;
+      },
+      err=>{
+        console.log(err);
+      }
+    );
   }
 }
 

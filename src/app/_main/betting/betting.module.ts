@@ -16,6 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 
@@ -27,6 +29,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   imports: [
     CommonModule,
     MatTableModule,
+    MatTabsModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -41,7 +44,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatButtonModule,
     MatRadioModule,
     MatDividerModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatGridListModule
   ],
   providers:[
     MatDatepickerModule

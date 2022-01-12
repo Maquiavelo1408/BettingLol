@@ -2,7 +2,7 @@
     <mat-step [stepControl]="formGroup">
         <ng-template matStepLabel>Select a winner!</ng-template>
         <form [formGroup]="formGroup" [style.fontSize.px]="16">
-            <div class="amount-container center">
+            <div class="amount-container left">
                 <mat-form-field>
                 <mat-label for="betAmount">Amount:</mat-label>
                 <input matInput formControlName="betAmount"
@@ -18,8 +18,8 @@
                 <th style="text-align: center; padding: 16px; background: rgba(0, 4, 255, 0.433);">Blue Team:</th>
             </tr>
             <tr>
-                <td [ngStyle]="redStyle()" style="text-align: center;padding: 8px 8px 8px 0;" (click)="activateRedTeam()">{{ matchData.team2.name}}</td>
-                <td [ngStyle]="blueStyle()" style="text-align: center; padding: 8px 8px 8px 0;" (click)="activateBlueTeam()">{{ matchData.team1.name}}</td>
+                <td [ngStyle]="redStyle()" style="text-align: center;padding: 8px 8px 8px 0;" (click)="activateRedTeam()">{{ matchData.team1.name}}</td>
+                <td [ngStyle]="blueStyle()" style="text-align: center; padding: 8px 8px 8px 0;" (click)="activateBlueTeam()">{{ matchData.team2.name}}</td>
             </tr>
         </table>
         <div> 
@@ -32,26 +32,95 @@
         <ng-template matStepLabel>Guess the games results!</ng-template>
         <div *ngFor="let round of counter(noGames); let in = index; last as last" [formGroup]="gameResults">
         <mat-radio-group class="round-radio-group" aria-label="Select" formControlName="{{in}}" (change)="checkMatchResults()">
-            <mat-radio-button class="round-radio-button" style="margin-right: 15px;" value="1">{{matchData.team2.name}}</mat-radio-button>
-            <mat-radio-button class="round-radio-button" value="2">{{matchData.team1.name}}</mat-radio-button>
+            <mat-radio-button class="round-radio-button" style="margin-right: 15px;" value="1">{{matchData.team1.name}}</mat-radio-button>
+            <mat-radio-button class="round-radio-button" value="2">{{matchData.team2.name}}</mat-radio-button>
         </mat-radio-group>
     </div>
+    <button mat-button matStepperNext>Next</button>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Guess the players results!</ng-template>
+        <mat-tab-group>
+            <mat-tab *ngFor="let round of counter(noGames); let in= index;" class="tab-title">
+                <ng-template mat-tab-label>Game {{in+1}}</ng-template>
+                <p>Guess the game duration:</p>
+                <mat-radio-group aria-label="Select a duration">
+                    <mat-radio-button value="0">Less than 10 minutes</mat-radio-button>
+                    <mat-radio-button value="1">10-15 minutes</mat-radio-button>
+                    <mat-radio-button value="2">15-20 minutes</mat-radio-button>
+                    <mat-radio-button value="3">20-25 minutes</mat-radio-button>
+                    <mat-radio-button value="4">25-30 minutes</mat-radio-button>
+                    <mat-radio-button value="5">30-35 minutes</mat-radio-button>
+                    <mat-radio-button value="6">More than 35 minutes</mat-radio-button>
+                </mat-radio-group>
+                <p>Guess the player with more kills:</p>
+                <mat-grid-list cols="2" rowHeight="2:1">
+                    <mat-grid-tile>
+                        {{matchData.team1.name}}
+                        <mat-radio-group aria-label="Select a player" class="player-radio-group">
+                            <mat-radio-button *ngFor="let player of playersTeam1;" [value]="player">
+                                {{player.name}} ({{player.role}})
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        {{matchData.team2.name}}
+                        <mat-radio-group aria-label="Select a player" class="player-radio-group">
+                            <mat-radio-button *ngFor="let player of playersTeam2;" [value]="player">
+                                {{player.name}} ({{player.role}})
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <p>Guess the dragon soul:</p>
+                <mat-radio-group>
+                    <mat-radio-button [value]="0">Infernal Dragon</mat-radio-button>
+                    <mat-radio-button [value]="1">Cloud Dragon</mat-radio-button>
+                    <mat-radio-button [value]="2">Mountain Dragon</mat-radio-button>
+                    <mat-radio-button [value]="3">Ocean Dragon</mat-radio-button>
+                    <mat-radio-button [value]="4">Hextech Dragon</mat-radio-button>
+                    <mat-radio-button [value]="5">Chemtech Dragon</mat-radio-button>
+                </mat-radio-group>
+                <p>Guess the player with more deaths:</p>
+                <mat-grid-list cols="2" rowHeight="2:1">
+                    <mat-grid-tile>
+                        {{matchData.team1.name}}
+                        <mat-radio-group aria-label="Select a player" class="player-radio-group">
+                            <mat-radio-button *ngFor="let player of playersTeam1;" [value]="player">
+                                {{player.name}} ({{player.role}})
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        {{matchData.team2.name}}
+                        <mat-radio-group aria-label="Select a player" class="player-radio-group">
+                            <mat-radio-button *ngFor="let player of playersTeam2;" [value]="player">
+                                {{player.name}} ({{player.role}})
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-tab>
+        </mat-tab-group>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Confirm your bet</ng-template>
         <div class="text-danger" *ngIf="formGroup.invalid && formGroup.dirty">
             <p *ngIf="formGroup.controls['betAmount'].hasError('min')">The bet amount should be greater than 5.</p>
             <p *ngIf="formGroup.controls['teamSelect'].hasError('min')">Please select a team to bet.</p>
+            <p *ngIf="displayMissingGamePredictionError()">Please predict a result for all the games.</p>
+            <p *ngIf="displayMatchingSelectionWinnerError()">The winner selection and the game predictions doesnt match.</p>
         </div>
         <label>Selected winner:</label>
         <p *ngIf="formGroup.controls['teamSelect'].value == 1">{{matchData.team1.name}}</p>
         <p *ngIf="formGroup.controls['teamSelect'].value == 2">{{matchData.team2.name}}</p>
         <label>Predicted match result:</label>
         <div *ngFor="let round of counter(noGames);let in = index;">
+            <div *ngIf="showGameResult(in)">
             <p>Game {{in+1}}:</p>
             <p *ngIf="!displayWinner(in)">{{matchData.team1.name}}</p>
             <p *ngIf="displayWinner(in)">{{matchData.team2.name}}</p>
-            
+        </div>
         </div>
         
 

@@ -39,6 +39,10 @@ export class LolService {
      return this.http.get(API_URL+'team/'+ idTeam);
    }
 
+   public getPlayersByTeam(idTeam: string): Observable<any>{
+     return this.http.get(API_URL+'team/player/'+idTeam);
+   }
+
    public getMatchById(matchId: string): Observable<any>{
      return this.http.get(API_URL+'match/'+matchId);
    }

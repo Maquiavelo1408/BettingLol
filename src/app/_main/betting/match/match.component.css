@@ -71,3 +71,9 @@ input.amount-right-align {
   flex-direction: row-reverse !important;
   margin: 5px;
 }
+
+.player-radio-group{
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
