@@ -33,17 +33,17 @@ export class TeamsComponent implements OnInit {
   submitted = false;
   regionControl = new FormControl('', Validators.required);
   constructor(private collectionService: CollectionService) { }
-
+  color = '';
+  public selectedColor: string = '';
   ngOnInit(): void {
   }
 
   saveTeam():void{
     const data = {
       name: this.team.name,
-      color: this.team.color,
+      color: this.color,
       region: this.regionControl.value?.abbreviation
     }
-
     this.collectionService.createTeam(data)
     .subscribe(
       response=> {

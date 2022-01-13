@@ -51,6 +51,11 @@
           </mat-form-field>
         </div>
         <div class="form-group">
+          <label for="hour">Hour</label>
+          <input [ngxTimepicker]="pickerTime">
+          <ngx-material-timepicker #pickerTime></ngx-material-timepicker>
+        </div>
+        <div class="form-group">
           <label for="matchType">Match Type</label>
           <mat-radio-group [(ngModel)]="selectType" aria-label="Select an option" class="radio-group">
             <mat-radio-button class="radio-button" value="1">Best of 1</mat-radio-button>

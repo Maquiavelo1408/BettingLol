@@ -13,6 +13,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule} from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MaterialIncludeModule } from '../../material.module'
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { MaterialIncludeModule } from '../../material.module'
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialIncludeModule
+    MaterialIncludeModule,
+    NgxMaterialTimepickerModule,
+    ColorPickerModule
   ],
   providers:[
     MatDatepickerModule
