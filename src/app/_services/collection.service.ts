@@ -18,9 +18,9 @@ export class CollectionService {
     createTeam(data: any):Observable<any>{
         return this.http.post(baseUrl+'collection/team', data);
     }
-    updateTeam(id: any, data:any): Observable<any>{
+    /*updateTeam(id: any, data:any): Observable<any>{
         return this.http.put(`${baseUrl}collection/team/${id}`, data);
-    }
+    }*/
     deleteTeam(id: any): Observable<any>{
         return this.http.delete(`${baseUrl}collection/team/${id}`);
     }
@@ -43,5 +43,7 @@ export class CollectionService {
     createMatch(data: any): Observable<any>{
         return this.http.post(baseUrl+'match', data);
     }
-
+    updateTeam(data: any):Observable<any>{
+        return this.http.put(baseUrl+'collection/team', data);
+    }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { regionList } from 'src/app/constants/region';
 import { Competition } from 'src/app/models/competition.model';
 import { Match } from 'src/app/models/match.model';
 import { Region } from 'src/app/models/region.model';
@@ -27,22 +28,9 @@ export class MatchesComponent implements OnInit {
   team1Control = new FormControl('', Validators.required);
   team2Control = new FormControl('', Validators.required);
   date = new FormControl('', Validators.required);
+  hour = new FormControl('', Validators.required);
   selectType: number = 1;
-  regions: Region[] = [
-    { name:'Brazil', abbreviation: 'BR'},
-    { name: 'Europe Nordic & East', abbreviation: 'EUNE'},
-    { name: 'Europe Weds', abbreviation: 'EUW'},
-    { name: 'Latin America North', abbreviation: 'LAN'},
-    { name: 'Latin America South', abbreviation: 'LAS'},
-    { name:'North Ameria', abbreviation:'NA'},
-    {name:'Oceania', abbreviation:'OCE'},
-    { name: 'Russia', abbreviation: 'RU'},
-    { name: 'Turkey', abbreviation: 'TR'},
-    { name: 'Japan', abbreviation: 'JP'},
-    { name: 'Republic of Korea', abbreviation: 'KR'},
-    { name:'China', abbreviation:'CHN'},
-    {name:'Internation', abbreviation: 'INT'}
-  ];
+  regions = regionList;
 
   competitions: Competition[]=[
   ];
