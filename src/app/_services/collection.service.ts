@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Team } from '../models/team.model'
-import { Local_API } from '../constants/api';
+import { Heroku_API, Local_API } from '../constants/api';
 
-const baseUrl = Local_API+'/api/';
+const baseUrl = Heroku_API+'/api/';
 
 @Injectable({
     providedIn: 'root'

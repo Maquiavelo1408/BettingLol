@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Local_API } from '../constants/api';
+import { Heroku_API, Local_API } from '../constants/api';
 
-const AUTH_API = Local_API +'/api/auth/';
+const AUTH_API = Heroku_API +'/api/auth/';
 //Heroku_API
 
 const httpOptions = {
