@@ -14,7 +14,8 @@ import { CollectionService } from 'src/app/_services/collection.service';
 export class TeamsComponent implements OnInit {
   team: Team  ={
     name: '',
-    color: '',
+    primary_color: '',
+    secondary_color: '',
     region: ''
   }
 
@@ -28,14 +29,17 @@ export class TeamsComponent implements OnInit {
     this.teamForm = fb.group({
       id: new FormControl(''),
       name: new FormControl('', Validators.required),
-      color: new FormControl('', Validators.required),
+      primary_color: new FormControl('', Validators.required),
+      secondary_color: new FormControl('', Validators.required),
       region: new FormControl('', Validators.required)
     });
    }
-  color = '';
+  primary_color = '';
+  secondary_color = '';
+  updatingRow = new Team;
   public selectedColor: string = '';
   @ViewChild(MatTable) table: MatTable<Team>;
-  displayedColumns: string[] = ['name', 'region', 'color'];
+  displayedColumns: string[] = ['name', 'region', 'primary_color', 'secondary_color'];
   ngOnInit(): void {
     this.getTeams();
   }
@@ -44,11 +48,11 @@ export class TeamsComponent implements OnInit {
     this.formatColor();
     const data = {
       name: this.teamForm.controls['name'].value,
-      color: this.color,
+      primary_color: this.primary_color,
+      secondary_color: this.secondary_color,
       region: this.teamForm.controls['region'].value?.abbreviation
     }
-    console.log(data);
-    /*this.collectionService.createTeam(data)
+    this.collectionService.createTeam(data)
     .subscribe(
       response=> {
         console.log(response);
@@ -56,23 +60,24 @@ export class TeamsComponent implements OnInit {
       },
       error=> {
         console.log(error);
-      });*/
+      });
   }
 
   newTeam(): void{
     this.submitted = false;
     this.team = {
       name: '',
-      color:'',
+      primary_color: '',
+      secondary_color: '',
       region:''
     }
   }
 
   formatColor(): string{
     
-    let firstAlpha = this.color.replace(")", ",0)");
-    let secondAlpha = this.color.replace(")", ",0.8)");
-    let thirdAlpha = this.color.replace(")", ",1)");
+    let firstAlpha = this.primary_color.replace(")", ",0)");
+    let secondAlpha = this.primary_color.replace(")", ",0.8)");
+    let thirdAlpha = this.primary_color.replace(")", ",1)");
     let result = "radial-gradient(circle, " + firstAlpha + "0%, " + secondAlpha + "35%, " + thirdAlpha + "100%)";
     return result;
   }
@@ -89,14 +94,16 @@ export class TeamsComponent implements OnInit {
   updateRow(row: Team): void{
     console.log(row);
     this.teamForm.controls['region'].setValue(this.regions.find(x=> x.abbreviation == row.region));
-    this.color = row.color!;
-    
+    this.primary_color = row.primary_color!;
+    this.secondary_color = row.secondary_color!;
+    this.updatingRow = row;
     this.teamForm.controls['name'].setValue(row.name);
     this.teamForm.controls['id'].setValue(row.id);
     this.isUpdate = true;
   }
   updateTeam(){
-    this.teamForm.controls['color'].setValue(this.color);
+    this.teamForm.controls['primary_color'].setValue(this.primary_color);
+    this.teamForm.controls['secondary_color'].setValue(this.secondary_color);
     this.teamForm.controls['region'].setValue(this.regions.find(x=> x.abbreviation == this.teamForm.controls['region'].value?.abbreviation)?.abbreviation);
     this.collectionService.updateTeam(this.teamForm.value)
     .subscribe(data=>{
@@ -106,18 +113,38 @@ export class TeamsComponent implements OnInit {
         this.teams.data[index] = data;
       }
       this.table.renderRows();
+      this.resetTeamForm();
+    this.isUpdate = false;
     },
     err=>{
       console.log(err);
     });
-    this.teamForm.controls['color'].setValue('');
+    
   }
   cancelUpdate(){
     this.isUpdate = false;
+    this.resetTeamForm();
+  }
+  deleteRow(){
+    this.collectionService.deleteTeam(this.updatingRow.id)
+    .subscribe(data=>{
+      console.log(data);
+      this.resetTeamForm();
+      this.isUpdate = false;
+      this.getTeams();
+    },
+    err=>{
+      console.log(err);
+    });
+  }
+
+  resetTeamForm(){
     this.teamForm.controls['region'].setValue('');
     this.teamForm.controls['name'].setValue('');
-    this.color = '';
-    this.teamForm.controls['color'].setValue('');
+    this.primary_color = '';
+    this.secondary_color = '';
+    this.teamForm.controls['primary_color'].setValue('');
+    this.teamForm.controls['secondary_color'].setValue('');
     this.teamForm.controls['id'].setValue('');
   }
 }

@@ -13,18 +13,15 @@
         </div>
   
         <div class="form-group">
-          <label for="color">Color</label>
-          <!--<input
-            class="form-control"
-            id="color"
-            required
-            [(ngModel)]="team.color"
-            name="color"
-          />-->
-          <input [(colorPicker)]="color" [style.background]="color" [cpOutputFormat]="'rgba'" formControlName="color"
-          id="color" name="color"/>
+          <label for="primary_color">Primary Color</label>
+          <input [(colorPicker)]="primary_color" [style.background]="primary_color" [cpOutputFormat]="'rgba'" formControlName="primary_color"
+          id="primary_color" name="primary_color"/>
         </div>
-
+        <div class="form-group">
+          <label for="secondary_color">Secondary Color</label>
+          <input [(colorPicker)]="secondary_color" [style.background]="secondary_color" [cpOutputFormat]="'rgba'" formControlName="secondary_color"
+          id="secondary_color" name="secondary_color"/>
+        </div>
         <div class="form-group">
           <label for="region">Region</label>
           <mat-form-field appearance="fill">
@@ -36,9 +33,10 @@
         </mat-form-field>
         </div>
   
-        <button (click)="saveTeam()" *ngIf="!isUpdate" class="btn btn-success">Submit</button>
-        <button (click)="updateTeam()" *ngIf="isUpdate" class="btn btn-success">Update</button>
-        <button (click)="cancelUpdate()" *ngIf="isUpdate" class="btn btn-warn">Cancel</button>
+        <button mat-raised-button color="primary" (click)="saveTeam()" *ngIf="!isUpdate">Submit</button>
+        <button mat-raised-button color="primary" (click)="updateTeam()" *ngIf="isUpdate">Update</button>
+        <button mat-raised-button (click)="cancelUpdate()" *ngIf="isUpdate">Cancel</button>
+        <button mat-raised-button color="warn" (click)="deleteRow()" *ngIf="isUpdate">Delete</button>
       </div>
   
       <div *ngIf="submitted">
@@ -57,9 +55,13 @@
         <th mat-header-cell *matHeaderCellDef>Region</th>
         <td mat-cell *matCellDef="let element">{{element.region}}</td>
       </ng-container>
-      <ng-container matColumnDef="color">
-        <th mat-header-cell *matHeaderCellDef>Color</th>
-        <td mat-cell *matCellDef="let element" style="background-color:{{element.color}}"><div class="background-color:{{element.color}}; width: 100%"></div></td>
+      <ng-container matColumnDef="primary_color">
+        <th mat-header-cell *matHeaderCellDef>Primary Color</th>
+        <td mat-cell *matCellDef="let element" style="background-color:{{element.primary_color}}"><div class="background-color:{{element.color}}; width: 100%"></div></td>
+      </ng-container>
+      <ng-container matColumnDef="secondary_color">
+        <th mat-header-cell *matHeaderCellDef>Secondary Color</th>
+        <td mat-cell *matCellDef="let element" style="background-color:{{element.secondary_color}}"><div class="background-color:{{element.color}}; width: 100%"></div></td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"
