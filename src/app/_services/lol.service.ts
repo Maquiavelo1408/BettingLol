@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Heroku_API, Local_API } from '../constants/api';
 
-const API_URL = Heroku_API+'/api/';
+const API_URL = Local_API+'/api/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -56,5 +56,9 @@ export class LolService {
 
    public getTeamsByRegion(region: any): Observable<any>{
      return this.http.get(API_URL+'team?region='+ region);
+   }
+
+   public createSecondBet(body: any, user: any): Observable<any>{
+     return this.http.post(API_URL+'secondBet', body);
    }
 }

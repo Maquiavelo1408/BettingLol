@@ -57,7 +57,7 @@
                     <mat-radio-button value="6">More than 35 minutes</mat-radio-button>
                 </mat-radio-group>
                 <p>Guess the player with more kills:</p>
-                <mat-grid-list cols="2" rowHeight="4:1">
+                <mat-grid-list cols="2" rowHeight="3:1">
                     <mat-grid-tile>
                         {{matchData.team1.name}}
                         <mat-radio-group aria-label="Select a player" class="player-radio-group" formControlName="topKill1">
@@ -96,7 +96,7 @@
                     </mat-grid-tile>
                     <mat-grid-tile>
                         {{matchData.team2.name}}
-                        <mat-radio-group aria-label="Select a player" class="player-radio-group" formControlName="topDeath1">
+                        <mat-radio-group aria-label="Select a player" class="player-radio-group" formControlName="topDeath2">
                             <mat-radio-button *ngFor="let player of playersTeam2;"  class="player-radio-button" [value]="player.id">
                                 {{player.name}} ({{player.role}})
                             </mat-radio-button>

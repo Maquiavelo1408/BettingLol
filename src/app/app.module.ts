@@ -7,7 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { authInterceptorProvider } from './_helpers/auth.interceptor';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
@@ -25,6 +25,12 @@ import { TeamsComponent } from './collections/teams/teams/teams.component';
 import { CollectionsModule } from './collections/collections.module';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { ResultComponent } from './result/result/result.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -35,7 +41,8 @@ import { MatMenuModule } from '@angular/material/menu';
     ProfileComponent,
     BoardAdminComponent,
     BoardModeratorComponent,
-    BoardUserComponent
+    BoardUserComponent,
+    ResultComponent
     
   ],
   imports: [
@@ -49,10 +56,16 @@ import { MatMenuModule } from '@angular/material/menu';
     AdminModule,
     MatToolbarModule,
     MatMenuModule,
+    MatRadioModule,
     MatIconModule,
     MatButtonModule,
     FlexLayoutModule,
-    CollectionsModule
+    CollectionsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatTabsModule,
+    ReactiveFormsModule
   ],
   providers: [authInterceptorProvider],
   bootstrap: [AppComponent]

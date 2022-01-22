@@ -16,8 +16,10 @@ import { UserService } from 'src/app/_services/user.service';
 export class MatchComponent implements OnInit {
   gameResults: FormGroup;
   secondaryResults: FormGroup;
+  
   constructor(private route: ActivatedRoute, private lol: LolService, private token: TokenStorageService,
     private snackBar: MatSnackBar, private userSerive: UserService, private fb: FormBuilder) { 
+      
       this.gameResults = fb.group({
         0: '',
         1: '',
@@ -26,6 +28,9 @@ export class MatchComponent implements OnInit {
         4:''
       });
         this.secondaryResults = this.fb.group({
+          matchId: fb.control(''),
+          userId: fb.control(''),
+          betAmount: fb.control(''),
        games: fb.array([
         this.fb.group({
           gameDuration: ['', Validators.required],
@@ -33,7 +38,8 @@ export class MatchComponent implements OnInit {
           topKill2:['', Validators.required],
           dragonSoul: ['', Validators.required],
           topDeath1: ['', Validators.required],
-          topDeath2:['', Validators.required]
+          topDeath2:['', Validators.required],
+          gameNumber: ['1']
         }),
         this.fb.group({
           gameDuration: ['', Validators.required],
@@ -41,7 +47,8 @@ export class MatchComponent implements OnInit {
           topKill2:['', Validators.required],
           dragonSoul: ['', Validators.required],
           topDeath1: ['', Validators.required],
-          topDeath2:['', Validators.required]
+          topDeath2:['', Validators.required],
+          gameNumber: ['2']
         }),
         this.fb.group({
           gameDuration: ['', Validators.required],
@@ -49,7 +56,8 @@ export class MatchComponent implements OnInit {
           topKill2:['', Validators.required],
           dragonSoul: ['', Validators.required],
           topDeath1: ['', Validators.required],
-          topDeath2:['', Validators.required]
+          topDeath2:['', Validators.required],
+          gameNumber: ['3']
         }),
         this.fb.group({
           gameDuration: ['', Validators.required],
@@ -57,7 +65,8 @@ export class MatchComponent implements OnInit {
           topKill2:['', Validators.required],
           dragonSoul: ['', Validators.required],
           topDeath1: ['', Validators.required],
-          topDeath2:['', Validators.required]
+          topDeath2:['', Validators.required],
+          gameNumber: ['4']
         }),
         this.fb.group({
           gameDuration: ['', Validators.required],
@@ -65,7 +74,8 @@ export class MatchComponent implements OnInit {
           topKill2:['', Validators.required],
           dragonSoul: ['', Validators.required],
           topDeath1: ['', Validators.required],
-          topDeath2:['', Validators.required]
+          topDeath2:['', Validators.required],
+          gameNumber: ['5']
         }),
       ])
     });
@@ -84,12 +94,113 @@ export class MatchComponent implements OnInit {
       switch(this.matchType){
         case 1:
           this.noGames = 1;
+          this.secondaryResults = this.fb.group({
+            matchId: this.fb.control(''),
+            userId: this.fb.control(''),
+            betAmount: this.fb.control(''),
+          games: this.fb.array([
+          this.fb.group({
+            gameDuration: ['', Validators.required],
+            topKill1: ['', Validators.required],
+            topKill2:['', Validators.required],
+            dragonSoul: ['', Validators.required],
+            topDeath1: ['', Validators.required],
+            topDeath2:['', Validators.required],
+            gameNumber: ['1']
+          })
+        ])
+        });
           break;
           case 2:
             this.noGames = 3;
+            this.secondaryResults = this.fb.group({
+              matchId: this.fb.control(''),
+              userId: this.fb.control(''),
+              betAmount: this.fb.control(''),
+            games: this.fb.array([
+            this.fb.group({
+              gameDuration: ['', Validators.required],
+              topKill1: ['', Validators.required],
+              topKill2:['', Validators.required],
+              dragonSoul: ['', Validators.required],
+              topDeath1: ['', Validators.required],
+              topDeath2:['', Validators.required],
+              gameNumber: ['1']
+            }),
+            this.fb.group({
+              gameDuration: ['', Validators.required],
+              topKill1: ['', Validators.required],
+              topKill2:['', Validators.required],
+              dragonSoul: ['', Validators.required],
+              topDeath1: ['', Validators.required],
+              topDeath2:['', Validators.required],
+              gameNumber: ['2']
+            }),
+            this.fb.group({
+              gameDuration: ['', Validators.required],
+              topKill1: ['', Validators.required],
+              topKill2:['', Validators.required],
+              dragonSoul: ['', Validators.required],
+              topDeath1: ['', Validators.required],
+              topDeath2:['', Validators.required],
+              gameNumber: ['3']
+            })
+            ])});
             break;
             case 3:
               this.noGames = 5;
+              this.secondaryResults = this.fb.group({
+                matchId: this.fb.control(''),
+                userId: this.fb.control(''),
+                betAmount: this.fb.control(''),
+             games: this.fb.array([
+              this.fb.group({
+                gameDuration: ['', Validators.required],
+                topKill1: ['', Validators.required],
+                topKill2:['', Validators.required],
+                dragonSoul: ['', Validators.required],
+                topDeath1: ['', Validators.required],
+                topDeath2:['', Validators.required],
+                gameNumber: ['1']
+              }),
+              this.fb.group({
+                gameDuration: ['', Validators.required],
+                topKill1: ['', Validators.required],
+                topKill2:['', Validators.required],
+                dragonSoul: ['', Validators.required],
+                topDeath1: ['', Validators.required],
+                topDeath2:['', Validators.required],
+                gameNumber: ['2']
+              }),
+              this.fb.group({
+                gameDuration: ['', Validators.required],
+                topKill1: ['', Validators.required],
+                topKill2:['', Validators.required],
+                dragonSoul: ['', Validators.required],
+                topDeath1: ['', Validators.required],
+                topDeath2:['', Validators.required],
+                gameNumber: ['3']
+              }),
+              this.fb.group({
+                gameDuration: ['', Validators.required],
+                topKill1: ['', Validators.required],
+                topKill2:['', Validators.required],
+                dragonSoul: ['', Validators.required],
+                topDeath1: ['', Validators.required],
+                topDeath2:['', Validators.required],
+                gameNumber: ['4']
+              }),
+              this.fb.group({
+                gameDuration: ['', Validators.required],
+                topKill1: ['', Validators.required],
+                topKill2:['', Validators.required],
+                dragonSoul: ['', Validators.required],
+                topDeath1: ['', Validators.required],
+                topDeath2:['', Validators.required],
+                gameNumber: ['5']
+              }),
+            ])
+          });
               break;
               default:
                 this.noGames = 1;
@@ -135,6 +246,23 @@ export class MatchComponent implements OnInit {
           panelClass: ['mat-toolbar', 'mat-primary']
         });
         console.log(data);
+        this.secondaryResults.controls['matchId'].setValue(this.matchId);
+        this.secondaryResults.controls['userId'].setValue(this.currentUser.id);
+        this.lol.createSecondBet(this.secondaryResults.value, this.currentUser.id)
+        .subscribe(secondData=>{
+          this.snackBar.open('Secondary bet created successfully', 'Close',{
+            duration: 2000,
+            panelClass: ['mat-toolbar', 'mat-primary']
+          });
+          console.log(secondData);
+        },
+        errorSec =>{
+          this.snackBar.open(errorSec.error.message, 'Close',{
+            duration: 2000,
+            panelClass: ['mat-toolbar', 'mat-warn']
+          });
+          
+        });
       },
       err=>{
         this.snackBar.open(err.error.message, 'Close',{

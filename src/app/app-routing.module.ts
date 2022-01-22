@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
+import { ResultComponent } from './result/result/result.component';
 import { BettingComponent } from './_main/betting/betting.component';
 import { BettingModule } from './_main/betting/betting.module';
 import { MatchComponent } from './_main/betting/match/match.component';
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'collection/matches', component: MatchesComponent},
   { path: 'collection/competitions', component: CompetitionsComponent},
   {path: 'collection', component: CollectionsComponent},
+  { path: 'result/:matchId', component: ResultComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'}
 
 ];

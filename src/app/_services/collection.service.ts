@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Team } from '../models/team.model'
 import { Heroku_API, Local_API } from '../constants/api';
 
-const baseUrl = Heroku_API+'/api/';
+const baseUrl = Local_API+'/api/';
 
 @Injectable({
     providedIn: 'root'
