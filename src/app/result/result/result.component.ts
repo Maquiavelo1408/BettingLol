@@ -16,13 +16,16 @@ export class ResultComponent implements OnInit {
     results: fb.array([
       this.fb.group({
         gameDuration: [''],
+        
         winner: [''],
         dragonSoul: [''],
         gameNumber: ['1'],
         topKill1: [''],
         topKill2: [''],
         topDeath1: [''],
-        topDeth2: ['']
+        topDeath2: [''],
+        minutes: [''],
+        seconds: ['']
       }),
       this.fb.group({
         gameDuration: [''],
@@ -32,7 +35,9 @@ export class ResultComponent implements OnInit {
         topKill1: [''],
         topKill2: [''],
         topDeath1: [''],
-        topDeth2: ['']
+        topDeth2: [''],
+        minutes: [''],
+        seconds: ['']
       }),
       this.fb.group({
         gameDuration: [''],
@@ -42,7 +47,9 @@ export class ResultComponent implements OnInit {
         topKill1: [''],
         topKill2: [''],
         topDeath1: [''],
-        topDeth2: ['']
+        topDeth2: [''],
+        minutes: [''],
+        seconds: ['']
       }),
       this.fb.group({
         gameDuration: [''],
@@ -52,7 +59,9 @@ export class ResultComponent implements OnInit {
         topKill1: [''],
         topKill2: [''],
         topDeath1: [''],
-        topDeth2: ['']
+        topDeth2: [''],
+        minutes: [''],
+        seconds: ['']
       }),
       this.fb.group({
         gameDuration: [''],
@@ -62,7 +71,9 @@ export class ResultComponent implements OnInit {
         topKill1: [''],
         topKill2: [''],
         topDeath1: [''],
-        topDeth2: ['']
+        topDeth2: [''],
+        minutes: [''],
+        seconds: ['']
       }),
     ])
   });
@@ -72,7 +83,10 @@ export class ResultComponent implements OnInit {
   team1: any = [];
   team2: any = [];
   noGames = 0;
-  selectedPlayer = "";
+  topK1 =0;
+  topK2 = 0;
+  topD1=0;
+  topD2=0;
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => this.matchId = params["matchId"]);
     this.lol.getMatchById(this.matchId).subscribe(data=>{
@@ -82,6 +96,8 @@ export class ResultComponent implements OnInit {
         case 1:
           this.noGames = 1;
           this.formGroup = this.fb.group({
+            matchId: this.fb.control(''),
+                userId: this.fb.control(''),
             results: this.fb.array([
               this.fb.group({
                 gameDuration: [''],
@@ -91,7 +107,9 @@ export class ResultComponent implements OnInit {
                 topKill1: [''],
                 topKill2: [''],
                 topDeath1: [''],
-                topDeath2: ['']
+                topDeath2: [''],
+                minutes: [''],
+                seconds: ['']
               })
             ])
           });
@@ -99,6 +117,8 @@ export class ResultComponent implements OnInit {
           case 2:
             this.noGames = 3;
             this.formGroup = this.fb.group({
+              matchId: this.fb.control(''),
+                userId: this.fb.control(''),
               results: this.fb.array([
                 this.fb.group({
                   gameDuration: [''],
@@ -108,7 +128,9 @@ export class ResultComponent implements OnInit {
                   topKill1: [''],
                   topKill2: [''],
                   topDeath1: [''],
-                  topDeath2: ['']
+                  topDeath2: [''],
+                  minutes: [''],
+                  seconds: ['']
                 }),
                 this.fb.group({
                   gameDuration: [''],
@@ -118,7 +140,9 @@ export class ResultComponent implements OnInit {
                   topKill1: [''],
                   topKill2: [''],
                   topDeath1: [''],
-                  topDeth2: ['']
+                  topDeath2: [''],
+                  minutes: [''],
+                  seconds: ['']
                 }),
                 this.fb.group({
                   gameDuration: [''],
@@ -128,7 +152,9 @@ export class ResultComponent implements OnInit {
                   topKill1: [''],
                   topKill2: [''],
                   topDeath1: [''],
-                  topDeath2: ['']
+                  topDeath2: [''],
+                  minutes: [''],
+                  seconds: ['']
                 })
               ])
             });
@@ -136,6 +162,8 @@ export class ResultComponent implements OnInit {
             case 3:
               this.noGames = 5;
               this.formGroup = this.fb.group({
+                matchId: this.fb.control(''),
+                userId: this.fb.control(''),
                 results: this.fb.array([
                   this.fb.group({
                     gameDuration: [''],
@@ -145,7 +173,9 @@ export class ResultComponent implements OnInit {
                     topKill1: [''],
                     topKill2: [''],
                     topDeath1: [''],
-                    topDeth2: ['']
+                    topDeath2: [''],
+                    minutes: [''],
+                    seconds: ['']
                   }),
                   this.fb.group({
                     gameDuration: [''],
@@ -155,7 +185,9 @@ export class ResultComponent implements OnInit {
                     topKill1: [''],
                     topKill2: [''],
                     topDeath1: [''],
-                    topDeath2: ['']
+                    topDeath2: [''],
+                    minutes: [''],
+                    seconds: ['']
                   }),
                   this.fb.group({
                     gameDuration: [''],
@@ -165,7 +197,9 @@ export class ResultComponent implements OnInit {
                     topKill1: [''],
                     topKill2: [''],
                     topDeath1: [''],
-                    topDeath2: ['']
+                    topDeath2: [''],
+                    minutes: [''],
+                    seconds: ['']
                   }),
                   this.fb.group({
                     gameDuration: [''],
@@ -175,7 +209,9 @@ export class ResultComponent implements OnInit {
                     topKill1: [''],
                     topKill2: [''],
                     topDeath1: [''],
-                    topDeath2: ['']
+                    topDeath2: [''],
+                    minutes: [''],
+                    seconds: ['']
                   }),
                   this.fb.group({
                     gameDuration: [''],
@@ -185,7 +221,9 @@ export class ResultComponent implements OnInit {
                     topKill1: [''],
                     topKill2: [''],
                     topDeath1: [''],
-                    topDeath2: ['']
+                    topDeath2: [''],
+                    minutes: [''],
+                    seconds: ['']
                   }),
                 ])
               });
@@ -208,5 +246,9 @@ export class ResultComponent implements OnInit {
   }
   setResults(){
     console.log(this.formGroup.value);
+    this.formGroup.controls['matchId'].setValue(this.matchId);
+    this.lol.setResults(this.formGroup.value).subscribe(data=>{
+      console.log(data);
+    });
   }
 }

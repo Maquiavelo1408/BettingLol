@@ -1,100 +1,82 @@
 <p>Winner:</p>
 <div [formGroup]="formGroup">
-<mat-tab-group>
-    <mat-tab *ngFor="let round of counter(noGames); let in=index;" class="tab-title" formArrayName="results">
-        <div [formGroupName]="in">
-        <ng-template mat-tab-label>Game {{in+1}}</ng-template>
-        <mat-radio-group aria-label="Select the winner"formControlName="winner">
-            <mat-radio-button value="1">{{matchData.team1.name}}</mat-radio-button>
-            <mat-radio-button value="2">{{matchData.team2.name}}</mat-radio-button>
-        </mat-radio-group>
-        <p>Game Duration:</p>
-        <mat-form-field appearance="fill">
-            <mat-label>Minutes</mat-label>
-            <input matInput>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>Seconds</mat-label>
-            <input matInput>
-        </mat-form-field>
-        <h1>Dragon Soul:</h1>
-        <mat-radio-group aria-label="Select a soul" formControlName="dragonSoul">
-            <mat-radio-button [value]="0">Infernal Dragon</mat-radio-button>
-            <mat-radio-button [value]="1">Cloud Dragon</mat-radio-button>
-            <mat-radio-button [value]="2">Mountain Dragon</mat-radio-button>
-            <mat-radio-button [value]="3">Ocean Dragon</mat-radio-button>
-            <mat-radio-button [value]="4">Hextech Dragon</mat-radio-button>
-            <mat-radio-button [value]="5">Chemtech Dragon</mat-radio-button>
-        </mat-radio-group>
-        <p>Team Scores</p>
-        <h2>{{matchData.team1.name}}</h2>
-
-        <div class="row">
-            <div class="column">
-        
-        <table mat-table [dataSource]="team1">
-            <ng-container matColumnDef="players">
-                <th mat-header-cell *matHeaderCellDef>Top Kills</th>
-                <mat-cell *matCellDef="let row">
-                    <mat-radio-group formControlName="topKill1">
-                        <mat-radio-button [value]="row">{{row.name}}</mat-radio-button>
-                    </mat-radio-group>
-                </mat-cell>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        </div>
-        <div class="column">
-        <table mat-table [dataSource]="team1">
-            <ng-container matColumnDef="players">
-                <th mat-header-cell *matHeaderCellDef>Top Deaths</th>
-                <mat-cell *matCellDef="let row">
-                    <mat-radio-group formControlName="topDeath1">
-                        <mat-radio-button [value]="row">{{row.name}}</mat-radio-button>
-                    </mat-radio-group>
-                </mat-cell>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        </div>
-        </div>
-
-        <h2>{{matchData.team2.name}}</h2>
-        <div class="row">
-            <div class="column">
-        
-        <table mat-table [dataSource]="team2">
-            <ng-container matColumnDef="players">
-                <th mat-header-cell *matHeaderCellDef>Top Kills</th>
-                <mat-cell *matCellDef="let row">
-                    <mat-radio-group formControlName="topKill2">
-                        <mat-radio-button [value]="row">{{row.name}}</mat-radio-button>
-                    </mat-radio-group>
-                </mat-cell>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        </div>
-        <div class="column">
-        <table mat-table [dataSource]="team2">
-            <ng-container matColumnDef="players">
-                <th mat-header-cell *matHeaderCellDef>Top Deaths</th>
-                <mat-cell *matCellDef="let row">
-                    <mat-radio-group formControlName="topDeath2">
-                        <mat-radio-button [value]="row">{{row.name}}</mat-radio-button>
-                    </mat-radio-group>
-                </mat-cell>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        </div>
-        </div>
-    </div>
-    </mat-tab>
-</mat-tab-group>
+    <mat-tab-group>
+        <mat-tab *ngFor="let round of counter(noGames); let in=index;" class="tab-title" formArrayName="results">
+            <div [formGroupName]="in">
+                <ng-template mat-tab-label>Game {{in+1}}</ng-template>
+                <mat-radio-group aria-label="Select the winner" formControlName="winner">
+                    <mat-radio-button value="1">{{matchData.team1.name}}</mat-radio-button>
+                    <mat-radio-button value="2">{{matchData.team2.name}}</mat-radio-button>
+                </mat-radio-group>
+                <p>Game Duration:</p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Minutes</mat-label>
+                    <input matInput formControlName="minutes">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Seconds</mat-label>
+                    <input matInput formControlName="seconds">
+                </mat-form-field>
+                <h1>Dragon Soul:</h1>
+                <mat-radio-group aria-label="Select a soul" formControlName="dragonSoul">
+                    <mat-radio-button [value]="0">Infernal Dragon</mat-radio-button>
+                    <mat-radio-button [value]="1">Cloud Dragon</mat-radio-button>
+                    <mat-radio-button [value]="2">Mountain Dragon</mat-radio-button>
+                    <mat-radio-button [value]="3">Ocean Dragon</mat-radio-button>
+                    <mat-radio-button [value]="4">Hextech Dragon</mat-radio-button>
+                    <mat-radio-button [value]="5">Chemtech Dragon</mat-radio-button>
+                </mat-radio-group>
+                <p>Team Scores</p>
+                <h2>{{matchData.team1.name}}</h2>
+                <div class="row">
+                    
+                    <div class="column">
+                        Top Kills
+                        <mat-radio-group aria-label="Select a player" class="player-radio-group"
+                            formControlName="topKill1">
+                            <mat-radio-button *ngFor="let player of team1;" class="player-radio-button"
+                                [value]="player.id">
+                                {{player.name}} ({{player.role}})
+                            </mat-radio-button>
+                        </mat-radio-group>
+                            
+                    </div>
+                    <div class="column">
+                        <label>Top Deaths</label>
+                            <mat-radio-group aria-label="Select a player" class="player-radio-group"
+                                formControlName="topDeath1">
+                                <mat-radio-button *ngFor="let player of team1;" class="player-radio-button"
+                                    [value]="player.id">
+                                    {{player.name}} ({{player.role}})
+                                </mat-radio-button>
+                            </mat-radio-group>
+                    </div>
+                </div>
+                <h2>{{matchData.team2.name}}</h2>
+                <div class="row">
+                    <div class="column">
+                        Top Kills
+                        <mat-radio-group aria-label="Select a player" class="player-radio-group"
+                            formControlName="topKill2">
+                            <mat-radio-button *ngFor="let player of team2;" class="player-radio-button"
+                                [value]="player.id">
+                                {{player.name}} ({{player.role}})
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="column">
+                        <label>Top Deaths</label>
+                        <mat-radio-group aria-label="Select a player" class="player-radio-group"
+                            formControlName="topDeath2">
+                            <mat-radio-button *ngFor="let player of team2;" class="player-radio-button"
+                                [value]="player.id">
+                                {{player.name}} ({{player.role}})
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
 </div>
 <button mat-raised-button (click)="setResults()" color="primary">Set results</button>

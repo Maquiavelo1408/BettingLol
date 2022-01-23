@@ -16,211 +16,284 @@ import { UserService } from 'src/app/_services/user.service';
 export class MatchComponent implements OnInit {
   gameResults: FormGroup;
   secondaryResults: FormGroup;
-  
+
   constructor(private route: ActivatedRoute, private lol: LolService, private token: TokenStorageService,
-    private snackBar: MatSnackBar, private userSerive: UserService, private fb: FormBuilder) { 
-      
-      this.gameResults = fb.group({
-        0: '',
-        1: '',
-        2:'',
-        3:'',
-        4:''
-      });
-        this.secondaryResults = this.fb.group({
-          matchId: fb.control(''),
-          userId: fb.control(''),
-          betAmount: fb.control(''),
-       games: fb.array([
+    private snackBar: MatSnackBar, private userSerive: UserService, private fb: FormBuilder) {
+
+    this.gameResults = fb.group({
+      0: '',
+      1: '',
+      2: '',
+      3: '',
+      4: ''
+    });
+    this.secondaryResults = this.fb.group({
+      matchId: fb.control(''),
+      userId: fb.control(''),
+      betAmount: fb.control(''),
+      games: fb.array([
         this.fb.group({
           gameDuration: ['', Validators.required],
           topKill1: ['', Validators.required],
-          topKill2:['', Validators.required],
+          topKill2: ['', Validators.required],
           dragonSoul: ['', Validators.required],
           topDeath1: ['', Validators.required],
-          topDeath2:['', Validators.required],
+          topDeath2: ['', Validators.required],
           gameNumber: ['1']
         }),
         this.fb.group({
           gameDuration: ['', Validators.required],
           topKill1: ['', Validators.required],
-          topKill2:['', Validators.required],
+          topKill2: ['', Validators.required],
           dragonSoul: ['', Validators.required],
           topDeath1: ['', Validators.required],
-          topDeath2:['', Validators.required],
+          topDeath2: ['', Validators.required],
           gameNumber: ['2']
         }),
         this.fb.group({
           gameDuration: ['', Validators.required],
           topKill1: ['', Validators.required],
-          topKill2:['', Validators.required],
+          topKill2: ['', Validators.required],
           dragonSoul: ['', Validators.required],
           topDeath1: ['', Validators.required],
-          topDeath2:['', Validators.required],
+          topDeath2: ['', Validators.required],
           gameNumber: ['3']
         }),
         this.fb.group({
           gameDuration: ['', Validators.required],
           topKill1: ['', Validators.required],
-          topKill2:['', Validators.required],
+          topKill2: ['', Validators.required],
           dragonSoul: ['', Validators.required],
           topDeath1: ['', Validators.required],
-          topDeath2:['', Validators.required],
+          topDeath2: ['', Validators.required],
           gameNumber: ['4']
         }),
         this.fb.group({
           gameDuration: ['', Validators.required],
           topKill1: ['', Validators.required],
-          topKill2:['', Validators.required],
+          topKill2: ['', Validators.required],
           dragonSoul: ['', Validators.required],
           topDeath1: ['', Validators.required],
-          topDeath2:['', Validators.required],
+          topDeath2: ['', Validators.required],
           gameNumber: ['5']
         }),
       ])
     });
-    }
+  }
   matchId = "";
   matchData: any = [];
   currentUser: any;
-  matchType= 1;
+  matchType = 1;
   noGames = 0;
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => this.matchId = params["matchId"]);
-    this.lol.getMatchById(this.matchId).subscribe(data=>{
+    this.lol.getMatchById(this.matchId).subscribe(data => {
       console.log(data);
       this.matchData = data;
       this.matchType = data.match_type;
-      switch(this.matchType){
+      switch (this.matchType) {
         case 1:
           this.noGames = 1;
           this.secondaryResults = this.fb.group({
             matchId: this.fb.control(''),
             userId: this.fb.control(''),
             betAmount: this.fb.control(''),
-          games: this.fb.array([
-          this.fb.group({
-            gameDuration: ['', Validators.required],
-            topKill1: ['', Validators.required],
-            topKill2:['', Validators.required],
-            dragonSoul: ['', Validators.required],
-            topDeath1: ['', Validators.required],
-            topDeath2:['', Validators.required],
-            gameNumber: ['1']
-          })
-        ])
-        });
-          break;
-          case 2:
-            this.noGames = 3;
-            this.secondaryResults = this.fb.group({
-              matchId: this.fb.control(''),
-              userId: this.fb.control(''),
-              betAmount: this.fb.control(''),
             games: this.fb.array([
-            this.fb.group({
-              gameDuration: ['', Validators.required],
-              topKill1: ['', Validators.required],
-              topKill2:['', Validators.required],
-              dragonSoul: ['', Validators.required],
-              topDeath1: ['', Validators.required],
-              topDeath2:['', Validators.required],
-              gameNumber: ['1']
-            }),
-            this.fb.group({
-              gameDuration: ['', Validators.required],
-              topKill1: ['', Validators.required],
-              topKill2:['', Validators.required],
-              dragonSoul: ['', Validators.required],
-              topDeath1: ['', Validators.required],
-              topDeath2:['', Validators.required],
-              gameNumber: ['2']
-            }),
-            this.fb.group({
-              gameDuration: ['', Validators.required],
-              topKill1: ['', Validators.required],
-              topKill2:['', Validators.required],
-              dragonSoul: ['', Validators.required],
-              topDeath1: ['', Validators.required],
-              topDeath2:['', Validators.required],
-              gameNumber: ['3']
-            })
-            ])});
-            break;
-            case 3:
-              this.noGames = 5;
-              this.secondaryResults = this.fb.group({
-                matchId: this.fb.control(''),
-                userId: this.fb.control(''),
-                betAmount: this.fb.control(''),
-             games: this.fb.array([
               this.fb.group({
                 gameDuration: ['', Validators.required],
+                gameDurationBet: [''],
                 topKill1: ['', Validators.required],
-                topKill2:['', Validators.required],
+                topKill1Bet: [''],
+                topKill2: ['', Validators.required],
+                topKill2Bet: [''],
                 dragonSoul: ['', Validators.required],
+                dragonSoulBet: [''],
                 topDeath1: ['', Validators.required],
-                topDeath2:['', Validators.required],
+                topDeath1Bet: [''],
+                topDeath2: ['', Validators.required],
+                topDeath2Bet: [''],
+                gameWinner: [''],
+                gameWinnerBet: [''],
+                gameNumber: ['1']
+              })
+            ])
+          });
+          break;
+        case 2:
+          this.noGames = 3;
+          this.secondaryResults = this.fb.group({
+            matchId: this.fb.control(''),
+            userId: this.fb.control(''),
+            betAmount: this.fb.control(''),
+            games: this.fb.array([
+              this.fb.group({
+                gameDuration: ['', Validators.required],
+                gameDurationBet: [''],
+                topKill1: ['', Validators.required],
+                topKill1Bet: [''],
+                topKill2: ['', Validators.required],
+                topKill2Bet: [''],
+                dragonSoul: ['', Validators.required],
+                dragonSoulBet: [''],
+                topDeath1: ['', Validators.required],
+                topDeath1Bet: [''],
+                topDeath2: ['', Validators.required],
+                topDeath2Bet: [''],
+                gameWinner: [''],
+                gameWinnerBet: [''],
                 gameNumber: ['1']
               }),
               this.fb.group({
                 gameDuration: ['', Validators.required],
+                gameDurationBet: [''],
                 topKill1: ['', Validators.required],
-                topKill2:['', Validators.required],
+                topKill1Bet: [''],
+                topKill2: ['', Validators.required],
+                topKill2Bet: [''],
                 dragonSoul: ['', Validators.required],
+                dragonSoulBet: [''],
                 topDeath1: ['', Validators.required],
-                topDeath2:['', Validators.required],
+                topDeath1Bet: [''],
+                topDeath2: ['', Validators.required],
+                topDeath2Bet: [''],
+                gameWinner: [''],
+                gameWinnerBet: [''],
                 gameNumber: ['2']
               }),
               this.fb.group({
                 gameDuration: ['', Validators.required],
+                gameDurationBet: [''],
                 topKill1: ['', Validators.required],
-                topKill2:['', Validators.required],
+                topKill1Bet: [''],
+                topKill2: ['', Validators.required],
+                topKill2Bet: [''],
                 dragonSoul: ['', Validators.required],
+                dragonSoulBet: [''],
                 topDeath1: ['', Validators.required],
-                topDeath2:['', Validators.required],
+                topDeath1Bet: [''],
+                topDeath2: ['', Validators.required],
+                topDeath2Bet: [''],
+                gameWinner: [''],
+                gameWinnerBet: [''],
+                gameNumber: ['3']
+              })
+            ])
+          });
+          break;
+        case 3:
+          this.noGames = 5;
+          this.secondaryResults = this.fb.group({
+            matchId: this.fb.control(''),
+            userId: this.fb.control(''),
+            betAmount: this.fb.control(''),
+            games: this.fb.array([
+              this.fb.group({
+                gameDuration: ['', Validators.required],
+                gameDurationBet: [''],
+                topKill1: ['', Validators.required],
+                topKill1Bet: [''],
+                topKill2: ['', Validators.required],
+                topKill2Bet: [''],
+                dragonSoul: ['', Validators.required],
+                dragonSoulBet: [''],
+                topDeath1: ['', Validators.required],
+                topDeath1Bet: [''],
+                topDeath2: ['', Validators.required],
+                topDeath2Bet: [''],
+                gameWinner: [''],
+                gameWinnerBet: [''],
+                gameNumber: ['1']
+              }),
+              this.fb.group({
+                gameDuration: ['', Validators.required],
+                gameDurationBet: [''],
+                topKill1: ['', Validators.required],
+                topKill1Bet: [''],
+                topKill2: ['', Validators.required],
+                topKill2Bet: [''],
+                dragonSoul: ['', Validators.required],
+                dragonSoulBet: [''],
+                topDeath1: ['', Validators.required],
+                topDeath1Bet: [''],
+                topDeath2: ['', Validators.required],
+                topDeath2Bet: [''],
+                gameWinner: [''],
+                gameWinnerBet: [''],
+                gameNumber: ['2']
+              }),
+              this.fb.group({
+                gameDuration: ['', Validators.required],
+                gameDurationBet: [''],
+                topKill1: ['', Validators.required],
+                topKill1Bet: [''],
+                topKill2: ['', Validators.required],
+                topKill2Bet: [''],
+                dragonSoul: ['', Validators.required],
+                dragonSoulBet: [''],
+                topDeath1: ['', Validators.required],
+                topDeath1Bet: [''],
+                topDeath2: ['', Validators.required],
+                topDeath2Bet: [''],
+                gameWinner: [''],
+                gameWinnerBet: [''],
                 gameNumber: ['3']
               }),
               this.fb.group({
                 gameDuration: ['', Validators.required],
+                gameDurationBet: [''],
                 topKill1: ['', Validators.required],
-                topKill2:['', Validators.required],
+                topKill1Bet: [''],
+                topKill2: ['', Validators.required],
+                topKill2Bet: [''],
                 dragonSoul: ['', Validators.required],
+                dragonSoulBet: [''],
                 topDeath1: ['', Validators.required],
-                topDeath2:['', Validators.required],
+                topDeath1Bet: [''],
+                topDeath2: ['', Validators.required],
+                topDeath2Bet: [''],
+                gameWinner: [''],
+                gameWinnerBet: [''],
                 gameNumber: ['4']
               }),
               this.fb.group({
                 gameDuration: ['', Validators.required],
+                gameDurationBet: [''],
                 topKill1: ['', Validators.required],
-                topKill2:['', Validators.required],
+                topKill1Bet: [''],
+                topKill2: ['', Validators.required],
+                topKill2Bet: [''],
                 dragonSoul: ['', Validators.required],
+                dragonSoulBet: [''],
                 topDeath1: ['', Validators.required],
-                topDeath2:['', Validators.required],
+                topDeath1Bet: [''],
+                topDeath2: ['', Validators.required],
+                topDeath2Bet: [''],
+                gameWinner: [''],
+                gameWinnerBet: [''],
                 gameNumber: ['5']
               }),
             ])
           });
-              break;
-              default:
-                this.noGames = 1;
-                break;
+          break;
+        default:
+          this.noGames = 1;
+          break;
       }
       this.getPlayersByTeam();
     });
     this.currentUser = this.token.getUser();
     this.formGroup.controls['betAmount'].markAsDirty();
-    
+
 
   }
 
-  displayedColumns: string[]= ['BlueTeam', 'RedTeam'];
+  displayedColumns: string[] = ['BlueTeam', 'RedTeam'];
   statusSelected = 'not-active';
   statusRedTeam = false;
   statusBlueTeam = false;
-  team1Wins =0;
-  team2Wins= 0;
-  playersTeam1: Player[] =[];
+  team1Wins = 0;
+  team2Wins = 0;
+  playersTeam1: Player[] = [];
   playersTeam2: Player[] = [];
   formGroup = new FormGroup({
     teamSelect: new FormControl('-1', [Validators.required, Validators.min(1), Validators.max(2)]),
@@ -229,19 +302,21 @@ export class MatchComponent implements OnInit {
     userId: new FormControl()
   });
 
-  get f(){
+  get f() {
     return this.formGroup.controls;
   }
 
-  submit(){
+  submit() {
     console.log(this.secondaryResults);
-    if(this.formGroup.status == 'VALID')
-    {
+    if (this.formGroup.status == 'VALID') {
       this.formGroup.controls['matchId'].setValue(this.matchId);
       this.formGroup.controls['userId'].setValue(this.token.getUser().id);
-
-      this.lol.createBet(this.formGroup.value, this.currentUser).subscribe(data=>{
-        this.snackBar.open('Bet created successfully', 'Close',{
+      if(this.matchType == 1){
+        const game1 =  <FormArray>this.formGroup.controls['games'];
+        game1.controls['0'].controls['gameWinner'].setValue(this.formGroup['teamSelect'].value);
+      }
+      this.lol.createBet(this.formGroup.value, this.currentUser).subscribe(data => {
+        this.snackBar.open('Bet created successfully', 'Close', {
           duration: 2000,
           panelClass: ['mat-toolbar', 'mat-primary']
         });
@@ -249,49 +324,49 @@ export class MatchComponent implements OnInit {
         this.secondaryResults.controls['matchId'].setValue(this.matchId);
         this.secondaryResults.controls['userId'].setValue(this.currentUser.id);
         this.lol.createSecondBet(this.secondaryResults.value, this.currentUser.id)
-        .subscribe(secondData=>{
-          this.snackBar.open('Secondary bet created successfully', 'Close',{
-            duration: 2000,
-            panelClass: ['mat-toolbar', 'mat-primary']
-          });
-          console.log(secondData);
-        },
-        errorSec =>{
-          this.snackBar.open(errorSec.error.message, 'Close',{
+          .subscribe(secondData => {
+            this.snackBar.open('Secondary bet created successfully', 'Close', {
+              duration: 2000,
+              panelClass: ['mat-toolbar', 'mat-primary']
+            });
+            console.log(secondData);
+          },
+            errorSec => {
+              this.snackBar.open(errorSec.error.message, 'Close', {
+                duration: 2000,
+                panelClass: ['mat-toolbar', 'mat-warn']
+              });
+
+            });
+      },
+        err => {
+          this.snackBar.open(err.error.message, 'Close', {
             duration: 2000,
             panelClass: ['mat-toolbar', 'mat-warn']
           });
-          
+          console.log(err);
         });
-      },
-      err=>{
-        this.snackBar.open(err.error.message, 'Close',{
-          duration: 2000,
-          panelClass: ['mat-toolbar', 'mat-warn']
-        });
-        console.log(err);
-      });
       console.log(this.formGroup.value);
-    } else{
+    } else {
       //this.snackBar.open(this.formGroup.)
     }
   }
-  setActive(){
+  setActive() {
     this.statusSelected = 'active';
   }
-  activateRedTeam(){
+  activateRedTeam() {
     this.statusRedTeam = true;
     this.statusBlueTeam = false;
     this.formGroup.controls['teamSelect'].setValue(1);
   }
-  activateBlueTeam(){
+  activateBlueTeam() {
     this.statusRedTeam = false;
     this.statusBlueTeam = true;
     this.formGroup.controls['teamSelect'].setValue(2);
   }
 
-  blueStyle(): Object{
-    if(!this.statusRedTeam && this.statusBlueTeam){
+  blueStyle(): Object {
+    if (!this.statusRedTeam && this.statusBlueTeam) {
       return {
         //'background': 'rgb(36,0,5)',
         'background': this.matchData.team1.color
@@ -301,8 +376,8 @@ export class MatchComponent implements OnInit {
     }
     return {};
   }
-  redStyle():Object{
-    if(this.statusRedTeam && !this.statusBlueTeam){
+  redStyle(): Object {
+    if (this.statusRedTeam && !this.statusBlueTeam) {
       return {
         //'background': 'rgb(255,87,3)';
         'background': this.matchData.team2.color
@@ -310,105 +385,105 @@ export class MatchComponent implements OnInit {
     }
     return {};
   }
-  counter(i:number){
+  counter(i: number) {
     return new Array(i);
   }
-  displayWinner(i: number){
-    if(this.gameResults.controls[i.toString()].value == '1'){
+  displayWinner(i: number) {
+    if (this.gameResults.controls[i.toString()].value == '1') {
       return true;
-    } else{
+    } else {
       return false;
     }
   }
-  checkMatchResults(){
-    switch(this.matchType){
+  checkMatchResults() {
+    switch (this.matchType) {
       case 1:
-        
+
         break;
-        case 2:
-          if((this.gameResults.controls[0].value == this.gameResults.controls[1].value)){
-            this.gameResults.controls[2].disable();
-          } else{
-            this.gameResults.controls[2].enable();
+      case 2:
+        if ((this.gameResults.controls[0].value == this.gameResults.controls[1].value)) {
+          this.gameResults.controls[2].disable();
+        } else {
+          this.gameResults.controls[2].enable();
+        }
+        break;
+      case 3:
+        this.team1Wins = 0;
+        this.team2Wins = 0;
+        for (let i = 0; i < 5; i++) {
+          if (this.gameResults.controls[i].value == '1') {
+            this.team1Wins++;
+          } else if (this.gameResults.controls[i].value == '2') {
+            this.team2Wins++;
           }
-          break;
-          case 3:
-            this.team1Wins = 0;
-            this.team2Wins = 0;
-            for(let i = 0; i < 5; i++){
-              if(this.gameResults.controls[i].value=='1'){
-                this.team1Wins++;
-              }else if(this.gameResults.controls[i].value == '2'){
-                this.team2Wins++;
-              }
-              if(this.team1Wins >= 3 || this.team2Wins >= 3){
-                if(i < 4){
-                  this.gameResults.controls[i+1].setValue(0);
-                  this.gameResults.controls[i+1].disable();
-                }
-              } else{
-                if(i < 4)
-                  this.gameResults.controls[i+1].enable();
-                  else{
-                    this.gameResults.controls[i].enable();
-                  }
-              }
+          if (this.team1Wins >= 3 || this.team2Wins >= 3) {
+            if (i < 4) {
+              this.gameResults.controls[i + 1].setValue(0);
+              this.gameResults.controls[i + 1].disable();
             }
-            
-            break;
+          } else {
+            if (i < 4)
+              this.gameResults.controls[i + 1].enable();
+            else {
+              this.gameResults.controls[i].enable();
+            }
+          }
+        }
+
+        break;
 
     }
   }
-  showGameResult(index: number){
-    if(this.gameResults.controls[index].value > 0){
+  showGameResult(index: number) {
+    if (this.gameResults.controls[index].value > 0) {
       return true;
     }
     return false;
   }
-  displayMissingGamePredictionError(){
-    if(this.team1Wins < 3 && this.team2Wins < 3){
+  displayMissingGamePredictionError() {
+    if (this.team1Wins < 3 && this.team2Wins < 3) {
       return true;
     }
     return false;
   }
-  displayMatchingSelectionWinnerError(){
-    if(this.formGroup.controls['teamSelect'].value == 1){
-      if(this.team1Wins != 3){
+  displayMatchingSelectionWinnerError() {
+    if (this.formGroup.controls['teamSelect'].value == 1) {
+      if (this.team1Wins != 3) {
         return true;
       }
-      else if(this.team1Wins ==3){
+      else if (this.team1Wins == 3) {
         return false;
       }
     }
-    if(this.formGroup.controls['teamSelect'].value == 2){
-      if(this.team2Wins != 3){
+    if (this.formGroup.controls['teamSelect'].value == 2) {
+      if (this.team2Wins != 3) {
         return true;
-      } else if(this.team2Wins == 3){
+      } else if (this.team2Wins == 3) {
         return false;
       }
     }
     return false;
   }
-  getPlayersByTeam(){
+  getPlayersByTeam() {
     this.lol.getPlayersByTeam(this.matchData.team1.id)
-    .subscribe(
-      data=>{
-        console.log(data);
-        this.playersTeam1 = data;
-      },
-      err=>{
-        console.log(err);
-      }
-    );
+      .subscribe(
+        data => {
+          console.log(data);
+          this.playersTeam1 = data;
+        },
+        err => {
+          console.log(err);
+        }
+      );
     this.lol.getPlayersByTeam(this.matchData.team2.id)
-    .subscribe(
-      data=>{
-        this.playersTeam2 = data;
-      },
-      err=>{
-        console.log(err);
-      }
-    );
+      .subscribe(
+        data => {
+          this.playersTeam2 = data;
+        },
+        err => {
+          console.log(err);
+        }
+      );
   }
 }
 

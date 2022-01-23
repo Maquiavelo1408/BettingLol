@@ -39,3 +39,12 @@
   tr:nth-child(even) {
     background-color: #f2f2f2;
   }
+  .player-radio-group{
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+  }
+  .player-radio-button{
+    margin: 15px;
+  }
+  

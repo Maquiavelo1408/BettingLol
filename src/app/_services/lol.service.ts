@@ -61,4 +61,7 @@ export class LolService {
    public createSecondBet(body: any, user: any): Observable<any>{
      return this.http.post(API_URL+'secondBet', body);
    }
+   public setResults(body: any): Observable<any>{
+     return this.http.post(API_URL+'result', body);
+   }
 }

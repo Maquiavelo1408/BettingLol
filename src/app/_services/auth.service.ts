@@ -32,4 +32,11 @@ export class AuthService {
       password
     }, httpOptions);
   }
+
+  sendEmail(body: any): Observable<any>{
+    return this.http.post(AUTH_API+'send-email', body);
+  }
+  createVerification(body: any): Observable<any>{
+    return this.http.post(AUTH_API+'createVerification', body);
+  }
 }

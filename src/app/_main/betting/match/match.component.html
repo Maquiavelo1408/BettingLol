@@ -56,9 +56,31 @@
                     <mat-radio-button value="5">30-35 minutes</mat-radio-button>
                     <mat-radio-button value="6">More than 35 minutes</mat-radio-button>
                 </mat-radio-group>
+                <mat-divider></mat-divider>
+                <div class="amount-container left">
+                    <mat-form-field>
+                    <mat-label for="gameDurationBet">Amount:</mat-label>
+                    <input matInput formControlName="gameDurationBet"
+                    id= "gameDurationBet"
+                    type="number" class="amount-right-align" placeholder="0">
+                    <span matPrefix>$&nbsp;</span>
+                    <span matSuffix>.00</span>
+                </mat-form-field>
+                </div>
+                <mat-divider></mat-divider>
                 <p>Guess the player with more kills:</p>
                 <mat-grid-list cols="2" rowHeight="3:1">
                     <mat-grid-tile>
+                        <div class="amount-container left">
+                            <mat-form-field>
+                            <mat-label for="topKill1Bet">Amount:</mat-label>
+                            <input matInput formControlName="topKill1Bet"
+                            id= "topKill1Bet"
+                            type="number" class="amount-right-align" placeholder="0">
+                            <span matPrefix>$&nbsp;</span>
+                            <span matSuffix>.00</span>
+                        </mat-form-field>
+                        </div>
                         {{matchData.team1.name}}
                         <mat-radio-group aria-label="Select a player" class="player-radio-group" formControlName="topKill1">
                             <mat-radio-button *ngFor="let player of playersTeam1;" class="player-radio-button" [value]="player.id">
@@ -67,6 +89,16 @@
                         </mat-radio-group>
                     </mat-grid-tile>
                     <mat-grid-tile>
+                        <div class="amount-container left">
+                            <mat-form-field>
+                            <mat-label for="topKill2Bet">Amount:</mat-label>
+                            <input matInput formControlName="topKill2Bet"
+                            id= "topKill2Bet"
+                            type="number" class="amount-right-align" placeholder="0">
+                            <span matPrefix>$&nbsp;</span>
+                            <span matSuffix>.00</span>
+                        </mat-form-field>
+                        </div>
                         {{matchData.team2.name}}
                         <mat-radio-group aria-label="Select a player" class="player-radio-group" formControlName="topKill2">
                             <mat-radio-button *ngFor="let player of playersTeam2;" class="player-radio-button" [value]="player.id">
@@ -75,7 +107,18 @@
                         </mat-radio-group>
                     </mat-grid-tile>
                 </mat-grid-list>
+                <mat-divider></mat-divider>
                 <p>Guess the dragon soul:</p>
+                <div class="amount-container left">
+                    <mat-form-field>
+                    <mat-label for="dragonSoulBet">Amount:</mat-label>
+                    <input matInput formControlName="dragonSoulBet"
+                    id= "dragonSoulBet"
+                    type="number" class="amount-right-align" placeholder="0">
+                    <span matPrefix>$&nbsp;</span>
+                    <span matSuffix>.00</span>
+                </mat-form-field>
+                </div>
                 <mat-radio-group aria-label="Select a soul" formControlName="dragonSoul">
                     <mat-radio-button [value]="0">Infernal Dragon</mat-radio-button>
                     <mat-radio-button [value]="1">Cloud Dragon</mat-radio-button>
@@ -84,9 +127,20 @@
                     <mat-radio-button [value]="4">Hextech Dragon</mat-radio-button>
                     <mat-radio-button [value]="5">Chemtech Dragon</mat-radio-button>
                 </mat-radio-group>
+                <mat-divider></mat-divider>
                 <p>Guess the player with more deaths:</p>
                 <mat-grid-list cols="2" rowHeight="4:1">
                     <mat-grid-tile>
+                        <div class="amount-container left">
+                            <mat-form-field>
+                            <mat-label for="topDeath1Bet">Amount:</mat-label>
+                            <input matInput formControlName="topDeath1Bet"
+                            id= "topDeath1Bet"
+                            type="number" class="amount-right-align" placeholder="0">
+                            <span matPrefix>$&nbsp;</span>
+                            <span matSuffix>.00</span>
+                        </mat-form-field>
+                        </div>
                         <label>{{matchData.team1.name}}</label>
                         <mat-radio-group aria-label="Select a player" class="player-radio-group" formControlName="topDeath1">
                             <mat-radio-button *ngFor="let player of playersTeam1;" class="player-radio-button" [value]="player.id">
@@ -95,6 +149,16 @@
                         </mat-radio-group>
                     </mat-grid-tile>
                     <mat-grid-tile>
+                        <div class="amount-container left">
+                            <mat-form-field>
+                            <mat-label for="topDeath2Bet">Amount:</mat-label>
+                            <input matInput formControlName="topDeath2Bet"
+                            id= "topDeath2Bet"
+                            type="number" class="amount-right-align" placeholder="0">
+                            <span matPrefix>$&nbsp;</span>
+                            <span matSuffix>.00</span>
+                        </mat-form-field>
+                        </div>
                         {{matchData.team2.name}}
                         <mat-radio-group aria-label="Select a player" class="player-radio-group" formControlName="topDeath2">
                             <mat-radio-button *ngFor="let player of playersTeam2;"  class="player-radio-button" [value]="player.id">
